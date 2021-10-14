@@ -17,7 +17,9 @@ import {
        },
        logOutButton: {
            float: 'right',
-           size: '40px',
+           fontSize: '18px',
+           marginRight: '25px',
+           fontFamily: 'Andale Mono, AndaleMono, monospace',
        }
     }));
                        
@@ -45,10 +47,13 @@ import {
                 <Router>
                 <Button className={logOutButton} onClick={event => window.location.href='/dev'} >
                         Home
-                    </Button>
-                    {currentUser && <Button className={logOutButton} onClick={handleLogout} >
+                </Button>
+                {currentUser && <Button className={logOutButton} onClick={event => window.location.href='/my-courses'} >
+                        My Courses
+                </Button>}
+                {currentUser && <Button className={logOutButton} onClick={handleLogout} >
                         Log Out
-                    </Button>}
+                </Button>}
                 </Router>
             </Toolbar>
         </AppBar>
