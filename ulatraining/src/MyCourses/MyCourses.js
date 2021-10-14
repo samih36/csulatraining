@@ -6,10 +6,6 @@ import './MyCourses.css';
 
 export default function MyCourses() {
 
-    const handleCourseClick = () => {
-
-    }
-
     return (
     <div className="container">
         <Box sx={{ flexGrow: 1 }}>
@@ -17,10 +13,10 @@ export default function MyCourses() {
                 <Grid item xs={7}>
                     <div className="coursesHeader">classes</div>
                     {/* hard coding a class in now, will later fetch the classes of the user and dynamically render*/}
-                    <div className="course">COMP XXX</div>
+                    <div className="course" onClick={event => window.location.href='/course'} >COMP XXX</div>
                 </Grid>
                 <Grid item xs={3}>
-                    <div className="coursesHeader" onClick={handleCourseClick}>Progress</div>
+                    <div className="coursesHeader">Progress</div>
                     <div className="course">0%</div>
                 </Grid>
                 <Grid item xs={2}>
