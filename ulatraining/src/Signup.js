@@ -3,10 +3,14 @@ import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
 import { useAuth } from './contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom'
 
-export default function Signup() {
+export default function Signup(props) {
+    const database = props.database;
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
+    const fNameRef = useRef();
+    const lNameRef = useRef();
+    const ONYENRef = useRef();
     const { signup } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -22,8 +26,8 @@ export default function Signup() {
         try {
             setError('');
             setLoading(true);
-            await signup(emailRef.current.value, passwordRef.current.value);
-            history.push('/dev');
+            await signup(emailRef.current.value, passwordRef.current.value, fNameRef.current.value, lNameRef.current.value, ONYENRef.current.value, database);
+            history.push('/my-courses');
         } catch {
             setError('Failed to create an account');
 
@@ -40,6 +44,18 @@ export default function Signup() {
                     <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
+                        <Form.Group id="name">
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control type="name" ref={fNameRef} required />
+                        </Form.Group>
+                        <Form.Group id="name">
+                            <Form.Label>Last Name</Form.Label>
+                            <Form.Control type="name" ref={lNameRef} required />
+                        </Form.Group>
+                        <Form.Group id="onyen">
+                            <Form.Label>UNC ONYEN</Form.Label>
+                            <Form.Control type="onyen" ref={ONYENRef} required />
+                        </Form.Group>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required />
