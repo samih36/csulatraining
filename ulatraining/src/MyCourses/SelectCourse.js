@@ -8,46 +8,65 @@ export default function SelectCourse(props) {
 
     const { currentUser } = useAuth();
     const database = props.database;
-    const [courses, setCourses] = useState(new Set());
-    const [loading, setLoading] = useState(true);
+    const [courses, setCourses] = useState({});
+    //const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (loading) {
-            database.ref('courses').on("value", (snapshot) => {
-                let ref = snapshot.val();
-                for (let i = 0; i < Object.keys(ref).length; i++) {
-                    courses.add(Object.keys(ref)[i]);
+        database.ref('courses').on("value", (snapshot) => {
+            if (snapshot.exists()) {
+                let snap = snapshot.val();
+                let _courses = {...courses};
+                for (const key in snap)
+                {
+                    _courses[key] = snap[key].name;
                 }
-                console.log([...courses]);
-                // console.log(ref);
-                // console.log(Object.keys(ref)[0]);
-                // console.log(ref[Object.keys(ref)[0]].modules.length);
-            });
-            database.ref('students').on("value", (snapshot) => {
-                let s = snapshot.val();
-                let myCourses = s[currentUser.uid].courses 
-                // console.log("my courses");
-                // console.log(myCourses);
-                // console.log(Object.keys(myCourses).length)
-                if (myCourses == null) {
-                    console.log('no courses')
-                    console.log([...courses]);
-                } else {
-                    console.log([...courses]);
-                    for (let j = 0; j < Object.keys(myCourses).length; j++) {
-                        // console.log(Object.keys(myCourses)[j])
-                        courses.delete(Object.keys(myCourses)[j])
-                    }
-                    // console.log('yo')
-                    // console.log([...courses]);
+                setCourses(_courses);
+                //console.log([...courses]);
+            }
+            // console.log(ref);
+            // console.log(Object.keys(ref)[0]);
+            // console.log(ref[Object.keys(ref)[0]].modules.length);
+        });
+        database.ref('students').child(currentUser.uid).child('courses').on('value', snapshot => {
+            if (snapshot.exists())
+            {
+                let myCourses = snapshot.val();
+                //console.log([...courses]);
+                let _courses = {...courses};
+                for (const c in myCourses)
+                {
+                    if (_courses[c])
+                        delete _courses[c];
                 }
-                setLoading(false);
-            })
-        }
-    }, [loading, database, courses, currentUser.uid])
+                setCourses(_courses);
+            }
+            else
+            {
+                console.log('no courses');
+                //console.log([...courses]);
+            }
+            //setLoading(false);
+        });
+    });
+    //}, [database, courses, currentUser.uid]);
 
-    const handleAddCourse = (course) => {
-        // add course to the student, fill modules with zeros. 
+    const handleAddcourse = (course) => {
+        database.ref('courses').child(course).once('value').then(snapshot => {
+            if (snapshot.exists())
+            {
+                let content = snapshot.val();
+                for (const mod in content.modules)
+                {
+                    content.modules[mod] = false;
+                }
+                database.ref('students').child(currentUser.uid).child('courses').child(course).set(content);
+            }
+        });
+        //setLoading(true);
+    };
+
+    /*const handleAddCourse = (course) => {
+        // add course to the student, fill modules with zeros.
         console.log('hey');
         let moduleLength = 0;
         database.ref('courses').on("value", (snapshot) => {
@@ -72,9 +91,30 @@ export default function SelectCourse(props) {
         })
 
     }
+    */
+
+    return (<div className="container">
+        <Box sx={{ flexGrow: 0 }}>
+            <Grid container spacing={2}>
+                <Grid item xs={10}>
+                    <div className="coursesHeader">classes</div>
+                    {/* hard coding a class in now, will later fetch the classes of the user and dynamically render*/}
+                    {Object.keys(courses).map((cid) => {
+                        return (<div className="course" key={cid} onClick={event => window.location.href=`/course${currentUser.uid}/${cid}`}>{courses[cid]}</div>)
+                    })}
+                </Grid>
+                <Grid item xs={2}>
+                    <div className="addCourseHeader">.</div>
+                    {Object.keys(courses).map(cid => {
+                        return (<div className="addCourse" key={cid} onClick={() => handleAddcourse(cid)}>add</div>)
+                    })}
+                </Grid>
+            </Grid>
+        </Box>
+    </div>);
 
 
-    if (loading && courses) {
+    /*if (loading && courses) {
         return null;
     }
     return (
@@ -83,7 +123,6 @@ export default function SelectCourse(props) {
             <Grid container spacing={2}>
                 <Grid item xs={10}>
                     <div className="coursesHeader">classes</div>
-                    {/* hard coding a class in now, will later fetch the classes of the user and dynamically render*/}
                     {[...courses].map((course) => {
                         return (<div className="course" key={course} onClick={event => window.location.href='/course'}>{course}</div>)
                     })}
@@ -97,5 +136,5 @@ export default function SelectCourse(props) {
             </Grid>
         </Box>
     </div>
-    )
+    )*/
 };
