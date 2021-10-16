@@ -58,7 +58,7 @@ export default function MyCourses(props) {
                         {/* hard coding a class in now, will later fetch the classes of the user and dynamically render*/}
                         {/*<div className="course" onClick={event => window.location.href='/course'} >COMP XXX</div>*/}
                         {Object.keys(courses).map((cid) => {
-                            return (<div className="course" onClick={event => window.location.href=`/course/${currentUser.uid}/{cid}`}>{courses[cid].name}</div>)
+                            return (<div className="course" onClick={event => window.location.href=`/course/${cid}`}>{courses[cid].name}</div>)
                         })}
                     </Grid>
                     <Grid item xs={3}>

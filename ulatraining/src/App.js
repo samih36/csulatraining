@@ -15,6 +15,7 @@ import ForgotPassword from './ForgotPassword.js';
 import MyCourses from './MyCourses/MyCourses.js';
 import ReadingModule from './ReadingModule.js';
 import SelectCourse from './MyCourses/SelectCourse.js';
+import ModuleSelector from './ModuleSelector.js';
 
 
 const database = firebase.database();
@@ -37,7 +38,7 @@ class App extends Component {
               <Route exact path = "/forgot-password" component={ForgotPassword} />
               <PrivateRoute exact path ="/my-courses" component={(props) => <MyCourses database={database} />} />
               <PrivateRoute exact path ='/add-course' component={(props) => <SelectCourse database={database} /> } />
-              <PrivateRoute exact path="/course/:uid?/:cid?" component={(props) => <ReadingModule database={database} uid="dweslynch" mod={0} key="0" course="Comp XXX" xmods={3}/>} />
+              <PrivateRoute exact path="/course/:cid" component={(props) => <ModuleSelector database={database}/>} />
               {/* hard coded class above for now, will change later*/}
               <PrivateRoute exact path="/dev" component={(props) => <DevFeatureSelector {...props} database={database} />} />
               <PrivateRoute exact path="/hello" component={(props) => <Hello {...props} database={database} />} />
