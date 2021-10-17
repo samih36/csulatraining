@@ -27,7 +27,7 @@ export default function SelectCourse(props) {
             // console.log(Object.keys(ref)[0]);
             // console.log(ref[Object.keys(ref)[0]].modules.length);
         });
-        database.ref('students').child(currentUser.uid).child('courses').on('value', snapshot => {
+        database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
             if (snapshot.exists())
             {
                 let myCourses = snapshot.val();
@@ -59,7 +59,7 @@ export default function SelectCourse(props) {
                 {
                     content.modules[mod] = false;
                 }
-                database.ref('students').child(currentUser.uid).child('courses').child(course).set(content);
+                database.ref('users').child(currentUser.uid).child('courses').child(course).set(content);
             }
         });
         //setLoading(true);
