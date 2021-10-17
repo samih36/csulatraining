@@ -12,10 +12,10 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
 
-    function signup(email, password, firstName, lastName, onyen, database) {
+    function signup(email, password, firstName, lastName, onyen, role, database) {
         auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
             if (userCredential.user.uid) {
-                database.ref('students').child(userCredential.user.uid).set({firstName: firstName, lastName: lastName, onyen: onyen});
+                database.ref('users').child(userCredential.user.uid).set({firstName: firstName, lastName: lastName, onyen: onyen, role: role});
             }
             }).catch((error) => {
             console.log("error");

@@ -20,7 +20,7 @@ export default function MyCourses(props) {
         //     console.log(ref[Object.keys(ref)[0]].modules.length);
         // });
 
-        database.ref('students').child(currentUser.uid).child('courses').on('value', snapshot => {
+        database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
             if (snapshot.exists())
             {
                 setCourses(snapshot.val());

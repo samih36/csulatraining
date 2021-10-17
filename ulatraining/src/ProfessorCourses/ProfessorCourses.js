@@ -12,7 +12,7 @@ export default function ProfessorCourses(props) {
 
     useEffect(() => {
 
-        database.ref('professors').child(currentUser.uid).child('courses').on('value', snapshot => {
+        database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
             if (snapshot.exists())
             {
                 setCourses(snapshot.val());

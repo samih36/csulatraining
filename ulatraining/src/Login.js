@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
 import { useAuth } from './contexts/AuthContext';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 export default function Login() {
+    let {role} = useParams();
+    role = role ? role : "student";
     const emailRef = useRef();
     const passwordRef = useRef();
     const { login } = useAuth();
@@ -51,7 +53,7 @@ export default function Login() {
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Link to="/signup">Sign Up</Link>
+                Need an account? <Link to={`/signup/${role}`}>Sign Up</Link>
             </div>
             </div>
         </Container>
