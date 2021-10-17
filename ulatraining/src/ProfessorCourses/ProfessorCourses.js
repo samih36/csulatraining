@@ -11,7 +11,7 @@ export default function ProfessorCourses(props) {
 
     useEffect(() => {
 
-        database.ref('students').child(currentUser.uid).child('courses').on('value', snapshot => {
+        database.ref('professors').child(currentUser.uid).child('courses').on('value', snapshot => {
             if (snapshot.exists())
             {
                 setCourses(snapshot.val());
