@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
 import { useAuth } from './contexts/AuthContext';
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 
 export default function Signup(props) {
+    let {role} = useParams();
+    role = role ? role : "student";
     const database = props.database;
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -26,7 +28,7 @@ export default function Signup(props) {
         try {
             setError('');
             setLoading(true);
-            await signup(emailRef.current.value, passwordRef.current.value, fNameRef.current.value, lNameRef.current.value, ONYENRef.current.value, database);
+            await signup(emailRef.current.value, passwordRef.current.value, fNameRef.current.value, lNameRef.current.value, ONYENRef.current.value, role, database);
             history.push('/my-courses');
         } catch {
             setError('Failed to create an account');

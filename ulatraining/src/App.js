@@ -37,8 +37,8 @@ class App extends Component {
           <Route path="/" render={ ( props ) => ( props.location.pathname !== "/") && <Header /> } />
             <Switch>
               <Route exact path="/" component={Welcome} />
-              <Route exact path = "/signup" component={(props) => <Signup database={database} />} />
-              <Route exact path = "/login" component={Login} />
+              <Route exact path = "/signup/:role?" component={(props) => <Signup database={database} />} />
+              <Route exact path = "/login/:role?" component={Login} />
               <Route exact path = "/forgot-password" component={ForgotPassword} />
               <PrivateRoute exact path ="/my-courses" component={(props) => <MyCourses database={database} />} />
               <PrivateRoute exact path ="/professor-courses" component={(props) => <ProfessorCourses database={database} />} />
