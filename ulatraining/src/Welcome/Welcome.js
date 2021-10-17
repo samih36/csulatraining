@@ -9,7 +9,7 @@ function Welcome() {
             <div className="button" onClick={event => window.location.href='/my-courses'}>Student</div>
         </div>
         <div className="rightcolumn">
-            <div className="button">Professor</div>
+            <div className="button" onClick={event => window.location.href='/professor-courses'}>Professor</div>
         </div>
         </div>
     )
