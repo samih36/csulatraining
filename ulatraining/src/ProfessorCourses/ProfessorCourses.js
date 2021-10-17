@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
+import './ProfessorCourses.css'
 
 export default function ProfessorCourses(props) {
 
@@ -40,7 +41,7 @@ export default function ProfessorCourses(props) {
 
                     </Grid>
                     <Grid item xs={2}>
-                        <div className="addClass" onClick={event => window.location.href='add-course'}>add course</div>
+                        <div className="createClass" onClick={event => window.location.href='create-course'}>create course</div>
                     </Grid>
 
                 </Grid>
