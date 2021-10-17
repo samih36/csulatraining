@@ -5,6 +5,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 
 export default function Login() {
     let {role} = useParams();
+    role = role ? role : "student";
     const emailRef = useRef();
     const passwordRef = useRef();
     const { login } = useAuth();
