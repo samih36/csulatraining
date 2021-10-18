@@ -24,6 +24,8 @@ class QuizComponent extends React.Component
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createQuestionData = this.createQuestionData.bind(this);
     this.fetchQuiz = this.fetchQuiz.bind(this);
+    this.nextModule = this.nextModule.bind(this);
+    this.previousModule = this.previousModule.bind(this);
   }
 
   fetchQuiz() {
@@ -106,12 +108,12 @@ class QuizComponent extends React.Component
 
   nextModule(event) {
     //do Something
-    alert ('Not Complete. Go to next module.');
+    window.location.href=`/course/${this.course}`
   }
 
   previousModule(event) {
     //do Something
-    alert ('Not Complete. Review previous module.');
+    window.location.href=`/course/${this.course}`
   }
 
   render()
