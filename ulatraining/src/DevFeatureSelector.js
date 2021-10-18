@@ -2,6 +2,7 @@
 // Until we get a working site this will let us see where we're at
 
 import React from 'react';
+import QuizComponent from './Quiz/QuizComponent.js';
 import ReadingModule from './ReadingModule.js';
 
 class DevFeatureSelector extends React.Component
@@ -16,13 +17,13 @@ class DevFeatureSelector extends React.Component
     };
 
     this.options = [
-      {
+      /*{
         name : "Reading Modules",
         content : <ReadingModule database={this.database} uid="dweslynch" mod={0} key="0" course="Comp XXX" xmods={3}/>
-      },
-
-      { name : "Quiz Modules", content : null },
-      { name : "Course View", content : null},
+    },*/
+    
+      { name : "Course View", content : null },
+      { name : "Quiz Modules", content : <QuizComponent database={this.database} uid="ayalcin" mod={0} key="0" course="Comp XXX" xmods={3}/>},
       { name : "Course Creation", content : null}
     ];
 
