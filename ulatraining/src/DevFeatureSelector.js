@@ -4,6 +4,7 @@
 import React from 'react';
 import QuizComponent from './Quiz/QuizComponent.js';
 import ReadingModule from './ReadingModule.js';
+import QuizCreationForm from "./Quiz/QuizCreationForm.js";
 
 class DevFeatureSelector extends React.Component
 {
@@ -24,6 +25,7 @@ class DevFeatureSelector extends React.Component
     
       { name : "Course View", content : null },
       { name : "Quiz Modules", content : <QuizComponent database={this.database} uid="ayalcin" mod={0} key="0" course="Comp XXX" xmods={3}/>},
+      { name: "Quiz Creation", content: <QuizCreationForm database= {this.database} uid="ayalcin" mod={0} key="0" course="Comp XXX"/>},
       { name : "Course Creation", content : null}
     ];
 
