@@ -51,10 +51,10 @@ class QuizCreationForm extends React.Component
         alert('Quiz Created!');
         let modulesdb = this.database.ref("courses/" + this.courseid + '/modules');
         let quizNode = modulesdb.child(this.state.values.name);
-        quizNode.update(this.state.values);
+        quizNode.update(this.state.values).then(response => {window.location.href=`/course/${this.courseid}`});
     }
 
-    formChange(event) {
+    formChange(event) { 
         let valuescp = Object.assign({},this.state.values);
         valuescp[event.target.id] = event.target.value;
         this.setState({values: valuescp});
