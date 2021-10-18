@@ -19,6 +19,12 @@ class QuizCreationForm extends React.Component
       renderedQuestions: [],
       newQuestionType : "mco",
       questions: [],
+      
+      q_choices: 4,
+      q_text: "",
+      q_answers: ['','','',''],
+      q_correct_choice: 'A',
+      
       values: {
         "id": "1",
         "questionNum": 0,
@@ -72,45 +78,58 @@ class QuizCreationForm extends React.Component
     }
 
     newQuestion(event) {
-        let qNum = this.state.values.questionNum + 1;
-        let newQuestionObj = {
-            type: event.target.value,
-            text: "",
-            maxCharacters: 1000
-        }
-        if (event.target.value === "mco") {
-            newQuestionObj = {
-            type: "mco",
-            choice_num: 4,
-            text: "",
-            answers: 
-            [
-                "", "", "", ""
-            ],
-            correctChoices: ["A"]
+        this.setState(function() {
+            let qNum = this.state.values.questionNum + 1;
+            let newQuestionObj = {
+                type: event.target.value,
+                text: "",
+                maxCharacters: 1000
             }
-        }
-        let valuescp = Object.assign({},this.state.values);
-        valuescp['questionNum'] = qNum;
-        let a1 = [...this.state.values.questions, newQuestionObj];
-        valuescp['questions'] = a1;
+            if (this.state.newQuestionType === "mco") {
+                newQuestionObj = {
+                type: "mco",
+                choice_num: 4,
+                text: "",
+                answers: 
+                [
+                    "", "", "", ""
+                ],
+                correctChoices: ["A"]
+                }
+            }
+            let valuescp = Object.assign({},this.state.values);
+            valuescp['questionNum'] = qNum;
+            let a1 = [...this.state.values.questions, newQuestionObj];
+            valuescp['questions'] = a1;
 
-        console.log(this.state.values.questions);
-        let question = <div id = {"question" + this.state.values.questionNum}>
-            <p>{qNum})</p>
-            <div className="nested-form">
-                <textarea rows="2" cols="80" value={a1[qNum - 1].text} onChange={(event) =>{ 
-                    this.setState(function(state, props) {
-                        newQuestionObj = Object.assign({}, this.state.questions[qNum - 1]);
-                        newQuestionObj.text = event.target.value;
-                        return {questions: [...this.state.questions.splice(qNum - 1, 1, newQuestionObj)]};
-                    });
-                }}></textarea>
-            </div>
-        </div>;
-        this.setState({questions: a1});
-        this.setState({values: valuescp});
-        this.setState({renderedQuestions: [...this.state.renderedQuestions, question]})
+            return {
+                questions: a1,
+                values: valuescp,
+            }
+        }, this.renderNewQuestion)
+
+    }
+
+    renderNewQuestion() {
+        console.log(this.state.questions);
+        this.setState(function() {
+            let question = <div id = {"question" + this.state.values.questionNum}>
+                <p>{this.state.values.questionNum})</p>
+                <div className="nested-form">
+                    <textarea rows="2" cols="80" value={this.state.questions[this.state.values.questionNum - 1].text} onChange={(event) =>{ 
+                        this.setState(function(state, props) {
+                            let newQuestionObj = Object.assign({}, this.state.questions[this.state.values.questionNum - 1]);
+                            newQuestionObj.text = event.target.value;
+
+                            return {
+                                renderedQuestions: [...this.state.renderedQuestions],
+                                questions: [...this.state.questions.splice(this.state.values.questionNum - 1, 1, newQuestionObj)]};
+                        });
+                    }}></textarea>
+                </div>
+            </div>;
+            return {renderedQuestions: [...this.state.renderedQuestions, question]}
+        })
     }
 
     render() {
