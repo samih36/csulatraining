@@ -91,8 +91,17 @@ class QuizComponent extends React.Component
     // for (let i = 0; i < this.state.questions.length; i++) {
     //   alert(this.state.questions[i].props.answer);
     // }
-    console.log(this.getQuizResult());
-    this.state.submitted = true;
+    this.setState({submitted: true})
+  }
+
+  nextModule(event) {
+    //do Something
+    alert ('Not Complete. Go to next module.');
+  }
+
+  previousModule(event) {
+    //do Something
+    alert ('Not Complete. Review previous module.');
   }
 
   render()
@@ -114,10 +123,15 @@ class QuizComponent extends React.Component
       </form>
     </div>;
     } else {
+      let message = <div><p>Sorry you have failed</p><br/><button type="button" onClick={this.previousModule}>Previous Module</button></div>;
+      if (this.getQuizResult() >= this.quizData.passPercentage) {
+        message = <div><p>Congratulations, you have passed!</p><br/><button type="button" onClick={this.nextModule}>Next Module</button></div>;
+      }
       return <div><h1>{this.course}</h1>
       <h2>{"Quiz for module " + this.quizData.moduleNum} </h2>
       <hr/>
-      <p>{"Score: " + this.getQuizResult()}</p>
+      <p>{"Score: " + (100 *this.getQuizResult()).toLocaleString(undefined, {maximumFractionDigits: 2}) + "%"}</p>
+      {message}
       </div>;
     }
     
