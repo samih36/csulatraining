@@ -24,8 +24,8 @@ class DevFeatureSelector extends React.Component
     },*/
     
       { name : "Course View", content : null },
-      { name : "Quiz Modules", content : <QuizComponent database={this.database} uid="ayalcin" mod={0} key="0" course="Comp XXX" xmods={3}/>},
-      { name: "Quiz Creation", content: <QuizCreationForm database= {this.database} uid="ayalcin" quizid="Quiz1" mod={0} key="0" courseid="QuizTestingCourse"/>},
+      { name : "Quiz Modules", content : <QuizComponent database={this.database} uid="ayalcin" mod={0} key="0" course="QuizTestingCourse" quizid="Quiz1" xmods={3}/>},
+      { name: "Quiz Creation", content: <QuizCreationForm database= {this.database} uid="ayalcin" mod={0} key="0" courseid="QuizTestingCourse"/>},
       { name : "Course Creation", content : null}
     ];
 

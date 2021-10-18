@@ -12,8 +12,7 @@ class QuizCreationForm extends React.Component
     super(props);
     this.database = props.database;
     this.uid = props.uid; // user id
-    this.courseid = props.courseid; // course name
-    this.quizid = props.quizid;
+    this.courseid = this.props.match.params.cid; // course name
     this.state = {
       mod: props.mod, // the zero-based index of the module
       renderedQuestions: [],
@@ -32,7 +31,7 @@ class QuizCreationForm extends React.Component
         "id": "1",
         "questionNum": 0,
         "courseNum": "1",
-        "quizName": "",
+        "name": "",
         "moduleNum": "0",
         "passPercentage": 0.6,
         "introduction": "",
@@ -51,7 +50,7 @@ class QuizCreationForm extends React.Component
     save() {
         alert('Quiz Created!');
         let modulesdb = this.database.ref("courses/" + this.courseid + '/modules');
-        let quizNode = modulesdb.child(this.quizid);
+        let quizNode = modulesdb.child(this.state.values.name);
         quizNode.update(this.state.values);
     }
 
@@ -97,6 +96,7 @@ class QuizCreationForm extends React.Component
 
         let valuescp = Object.assign({},this.state.values);
         valuescp['questions'].push(q_json);
+        valuescp['questionNum'] = valuescp['questionNum'] + 1;
         console.log(valuescp)
 
         let newRender= <div>
@@ -212,7 +212,7 @@ class QuizCreationForm extends React.Component
             <h1>Quiz Creator</h1>
             <form onSubmit={this.submitForm}>
                 <label for="moduleName">{"Quiz Name: "}</label>
-                <input type="text" maxLength="20" id="quizName" value={this.state.values.quizName} onChange={this.formChange}></input><br/>
+                <input type="text" maxLength="20" id="name" value={this.state.values.name} onChange={this.formChange}></input><br/>
 
                 <label for="introduction">{"Introductory Message: "}</label>
                 <textarea maxLength="1000" id="introduction" value={this.state.values.introduction} rows="5" cols="50" onChange={this.formChange}></textarea><br/>
