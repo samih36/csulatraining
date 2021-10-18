@@ -18,7 +18,7 @@ import QuizComponent from './Quiz/QuizComponent';
 import ProfessorCourses from './ProfessorCourses/ProfessorCourses';
 import CreateCourse from './ProfessorCourses/CreateCourse';
 import CreateModule from './ProfessorCourses/CreateModule';
-import ReadingModule from './ReadingModule.js';
+import ReadingModule from './Text/ReadingModule.js';
 import SelectCourse from './MyCourses/SelectCourse.js';
 import ModuleSelector from './ModuleSelector.js';
 import ModulePage from './ModulePage.js'

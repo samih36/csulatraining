@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from "./contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import { useParams } from "react-router-dom";
 
 export default function ReadingModule(props)

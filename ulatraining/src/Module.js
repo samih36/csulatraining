@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from "./contexts/AuthContext";
-import ReadingModule from './ReadingModule.js';
+import ReadingModule from './Text/ReadingModule.js';
 import QuizComponent from './Quiz/QuizComponent.js';
 
 export default function Module(props)

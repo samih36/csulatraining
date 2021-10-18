@@ -3,7 +3,7 @@
 
 import React from 'react';
 import QuizComponent from './Quiz/QuizComponent.js';
-import ReadingModule from './ReadingModule.js';
+import ReadingModule from './Text/ReadingModule.js';
 import QuizCreationForm from "./Quiz/QuizCreationForm.js";
 
 class DevFeatureSelector extends React.Component
@@ -22,7 +22,7 @@ class DevFeatureSelector extends React.Component
         name : "Reading Modules",
         content : <ReadingModule database={this.database} uid="dweslynch" mod={0} key="0" course="Comp XXX" xmods={3}/>
     },*/
-    
+
       { name : "Course View", content : null },
       { name : "Quiz Modules", content : <QuizComponent database={this.database} uid="ayalcin" mod={0} key="0" course="QuizTestingCourse" quizid="Quiz1" xmods={3}/>},
       { name: "Quiz Creation", content: <QuizCreationForm database= {this.database} uid="ayalcin" mod={0} key="0" courseid="QuizTestingCourse"/>},
