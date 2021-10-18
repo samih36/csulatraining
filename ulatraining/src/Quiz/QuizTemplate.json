@@ -1,0 +1,51 @@
+{
+    "id": "1",
+    "questionNum": "4",
+    "courseNum": "1",
+    "moduleNum": "0",
+    "passPercentage": 0.6,
+    "introduction": "This is a quiz on basic mathematics and unanswerable philosophical questions. Please answer to the best of your abilities.",
+    "shuffleChoices": false,
+    "showFeedback": true,
+    "questions": [
+    {
+        "type": "mco",
+        "choice_num": 4,
+        "text": "What is 2 + 2?",
+        "answers": 
+        [
+        "1", "2", "3", "4"
+        ],
+        "correctChoices": ["D"]
+    },
+    {
+        "type": "mco",
+        "choice_num": 4,
+        "text": "What is 3 + 3?",
+        "answers": 
+        [
+        "6", "9", "12", "18"
+        ],
+        "correctChoices": ["A"]
+    },
+    {
+        "type": "mcm",
+        "choice_num": 4,
+        "partial_credit": true,
+        "text": "Which of the following equals four?",
+        "answers": 
+        [
+            "2 + 2",
+            "2 * 2",
+            "2 / 2",
+            "2 ^ 2"
+        ],
+        "correctChoices": ["A", "B", "D"]
+    },
+    {
+        "type": "sa",
+        "text": "What is the meaning of life?",
+        "maxCharacters": "500"
+    }
+    ]
+}
