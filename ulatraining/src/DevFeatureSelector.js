@@ -16,10 +16,10 @@ class DevFeatureSelector extends React.Component
     };
 
     this.options = [
-      {
+      /*{
         name : "Reading Modules",
         content : <ReadingModule database={this.database} uid="dweslynch" mod={0} key="0" course="Comp XXX" xmods={3}/>
-      },
+    },*/
 
       { name : "Quiz Modules", content : null },
       { name : "Course View", content : null},
