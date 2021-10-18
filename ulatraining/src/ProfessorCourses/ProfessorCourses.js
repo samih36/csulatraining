@@ -27,10 +27,9 @@ export default function ProfessorCourses(props) {
                 <Grid container spacing={1}>
                     <Grid item xs={7}>
                         <div className="coursesHeader">courses</div>
-                        {/* hard coding a class in now, will later fetch the classes of the user and dynamically render*/}
-                        {/*<div className="course" onClick={event => window.location.href='/course'} >COMP XXX</div>*/}
+
                         {Object.keys(courses).map((cid) => {
-                            return (<div className="course" onClick={event => window.location.href=`/course/${currentUser.uid}/{cid}`}>{courses[cid].name}</div>)
+                            return (<div className="course" onClick={event => window.location.href=`/course/${cid}`}>{courses[cid].name}</div>)
                         })}
                     </Grid>
                     <Grid item xs={3}>
@@ -43,6 +42,7 @@ export default function ProfessorCourses(props) {
                     <Grid item xs={2}>
                         <div className="createClass" onClick={event => window.location.href='create-course'}>create course</div>
                     </Grid>
+
 
                 </Grid>
             </Box>

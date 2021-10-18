@@ -21,17 +21,12 @@ export default function SelectCourse(props) {
                     _courses[key] = snap[key].name;
                 }
                 setCourses(_courses);
-                //console.log([...courses]);
             }
-            // console.log(ref);
-            // console.log(Object.keys(ref)[0]);
-            // console.log(ref[Object.keys(ref)[0]].modules.length);
         });
         database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
             if (snapshot.exists())
             {
                 let myCourses = snapshot.val();
-                //console.log([...courses]);
                 let _courses = {...courses};
                 for (const c in myCourses)
                 {
@@ -43,12 +38,10 @@ export default function SelectCourse(props) {
             else
             {
                 console.log('no courses');
-                //console.log([...courses]);
             }
-            //setLoading(false);
         });
     });
-    //}, [database, courses, currentUser.uid]);
+
 
     const handleAddcourse = (course) => {
         database.ref('courses').child(course).once('value').then(snapshot => {

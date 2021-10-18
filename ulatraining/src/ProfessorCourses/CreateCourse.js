@@ -44,7 +44,4 @@ export default function CreateCourse(props) {
         </form>
 
     </div>);
-
-
-
 }
