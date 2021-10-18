@@ -45,9 +45,6 @@ import {
         <AppBar className={header}>
             <Toolbar>
                 <Router>
-                <Button className={logOutButton} onClick={event => window.location.href='/dev'} >
-                        Home
-                </Button>
                 {currentUser && <Button className={logOutButton} onClick={event => window.location.href='/my-courses'} >
                         My Courses
                 </Button>}
