@@ -10,17 +10,22 @@ export default function ModulePage(props) {
     let params = useParams();
     let courseID = params.cid;
     let moduleID = params.mid;
-    let module;
-    database.ref('courses').once("value").then( snapshot => {
-        if (snapshot.child(courseID).child("modules").child(moduleID).exists) {
-            module = snapshot.child(courseID).child("modules").child(moduleID).val();
-        }
-    })
-    console.log(module);
+    const [module, setModule] = useState({});
+    useEffect(()=> {
+        database.ref('courses').once("value").then( snapshot => {
+            if (snapshot.child(courseID).child("modules").child(moduleID).exists) {
+                setModule(snapshot.child(courseID).child("modules").child(moduleID).val());
+            }
+        })
+    });
+
+
 
     return(
         <div>
-            hello
+            <div>{`${module.name}`}</div>
+            <div>{`${module.content}`}</div>
         </div>
+
     )
 }
