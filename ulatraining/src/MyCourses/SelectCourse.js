@@ -93,7 +93,7 @@ export default function SelectCourse(props) {
                     <div className="coursesHeader">classes</div>
                     {/* hard coding a class in now, will later fetch the classes of the user and dynamically render*/}
                     {Object.keys(courses).map((cid) => {
-                        return (<div className="course" key={cid} onClick={event => window.location.href=`/course${currentUser.uid}/${cid}`}>{courses[cid]}</div>)
+                        return (<div className="course" key={cid} >{courses[cid]}</div>)
                     })}
                 </Grid>
                 <Grid item xs={2}>

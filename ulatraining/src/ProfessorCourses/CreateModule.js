@@ -24,7 +24,7 @@ export default function CreateModule(props) {
             }
         });
 
-    });
+    }, []);
 
     const handleCreateModule = (moduleName, moduleContent) => {
         let newModulePush = database.ref('courses').child(courseID).child("modules").push();

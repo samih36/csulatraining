@@ -23,7 +23,7 @@ export default function CreateCourse(props) {
             }
         });
 
-    });
+    }, []);
 
     const handleCreateCourse = (courseName) => {
         let newCoursePush = database.ref('courses').push();

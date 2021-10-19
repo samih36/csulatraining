@@ -24,15 +24,20 @@ export default function StudentCourseView(props) {
             }
         });
 
-        database.ref('courses').child(courseID).child('professor').once('value').then(snapshot => {
-            setProfessor(snapshot.exists() && snapshot.val());
+        database.ref('users').child(currentUser.uid).once('value').then(snapshot => {
+            let role = snapshot.val().role;
+            setProfessor(role === 'professor');
         });
+
+        database.ref('users').child(currentUser.uid).child('courses').child(courseID).on('value', snapshot => {
+            setCompletion(snapshot.val().modules);
+        })
 
                 /*database.ref('users').child(currentUser.uid).child('courses').child(courseID).child('modules').once('value').then(snapshot => {
                     if (snapshot.exists())
                         setCompletion(snapshot.val());
                 });*/
-    });
+    }, []);
 
     // This needs to be migrated to a new ProfessorCourseView
     // Or this component can be generalized
@@ -63,21 +68,20 @@ export default function StudentCourseView(props) {
 
     return(
         <div>
-            <div>Modules</div>
+            <h1>Modules</h1>
             {
-                Object.keys(modules).map(mid =>
+                Object.keys(modules).map(mid => {
+                    return completion[mid] === 100 ? 
+                    <div className='completedCourse' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div> : 
                     <div className='course' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div>
-                )
+                })
             }
 
-            {
-                professor
-                ? <div>
+            {professor && <div>
                     <h4>Create New Module:</h4>
                     <button type = "button" onClick={event=>window.location.href=`/create-module/${courseID}`}>Reading</button>
                     <button type = "button" onClick={event=>window.location.href=`/create-quiz/${courseID}`}>Quiz</button>
                 </div>
-                : null
             }
 
         </div>

@@ -6,12 +6,13 @@ export default function ReadingModule(props)
 {
     const { currentUser } = useAuth();
     const database = props.database;
-    const mid = parseInt(props.mid);
+    const mid = props.mid;
     const cid = props.cid;
     const _module = props.content;
 
     const handleAdvanceClick = event => {
-        database.ref('students').child(currentUser.uid).child('courses').child(cid).child('modules').child(mid).set(100);
+        console.log(mid)
+        database.ref('users').child(currentUser.uid).child('courses').child(cid).child('modules').child(mid).set(100);
         window.location.href = `/course/${cid}/${mid + 1}`;
     };
 

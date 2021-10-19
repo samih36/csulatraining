@@ -15,14 +15,14 @@ export default function Module(props)
     const [completed, setCompleted] = useState(false);
 
     useEffect(() => {
-        console.log(cid);
+        // console.log(cid);
         console.log(mid);
         database.ref('courses').child(cid).child('modules').child(mid).once('value').then(snapshot => {
             if (snapshot.exists())
                 setModule(snapshot.val());
             else setCompleted(true);
         });
-    });
+    }, []);
 
     if (completed)
         return <div>
