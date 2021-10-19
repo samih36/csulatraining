@@ -10,6 +10,7 @@ export default function StudentCourseView(props) {
     const { currentUser } = useAuth();
     const database = props.database;
     const [modules, setModules] = useState({});
+    const [completion, setCompletion] = useState({});
     const [professor, setProfessor] = useState(false);
     useEffect(() => {
         database.ref('courses').child(courseID).child('modules').once('value').then(snapshot => {
@@ -26,6 +27,11 @@ export default function StudentCourseView(props) {
         database.ref('courses').child(courseID).child('professor').once('value').then(snapshot => {
             setProfessor(snapshot.exists() && snapshot.val());
         });
+
+                database.ref('users').child(currentUser.uid).child('courses').child(courseID).child('modules').once('value').then(snapshot => {
+                    if (snapshot.exists())
+                        setCompletion(snapshot.val());
+                });
     });
 
     // This needs to be migrated to a new ProfessorCourseView
@@ -44,12 +50,21 @@ export default function StudentCourseView(props) {
     }
     */
 
+    const getColor = completion => {
+        let pct = parseInt(completion);
+        if (pct == 100)
+            return '#32a852';
+        else if (pct > 0)
+            return '#4B9CD3';
+        else return '#C8C8C8';
+    };
+
     return(
         <div>
             <div>Modules</div>
             {
                 Object.keys(modules).map(mid =>
-                    <div className='course' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div>
+                    <div className='course' style={{'backgroundColor': getColor(completion[mid])}} onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div>
                 )
             }
 
