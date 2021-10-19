@@ -21,7 +21,7 @@ export default function ModuleSelector(props)
 
         // This will automatically refresh the module view after the current module is completed
         // Advancement through modules is handled in QuizComponent or ReadingModule by marking mod as complete
-        database.ref('students').child(currentUser.uid).child('courses').child(cid).child('modules').on('value', snapshot => {
+        database.ref('users').child(currentUser.uid).child('courses').child(cid).child('modules').on('value', snapshot => {
             if (snapshot.exists())
             {
                 const modules = snapshot.val();
