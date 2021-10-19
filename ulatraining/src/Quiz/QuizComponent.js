@@ -1,5 +1,4 @@
 import React from 'react';
-
 import generateQuestion from "./QuestionComponent.js"
 import quizData from "./QuizTemplate.json"
 
@@ -10,8 +9,12 @@ class QuizComponent extends React.Component
     super(props);
     this.database = props.database;
     this.uid = props.uid; // user id
-    this.course = this.props.match.params.cid; // course name
-    this.quizid = this.props.match.params.mid;
+    this.course = props.cid;
+    this.quizid = props.mid;
+
+    //this.course = this.props.match.params.cid; // course name
+    //this.quizid = this.props.match.params.mid;
+
     this.state = {
       mod: props.mod, // the zero-based index of the module
       name: "",
@@ -19,15 +22,16 @@ class QuizComponent extends React.Component
       questions: [],
       questionData: [],
       submitted: false,
-      quizData: {}
+      quizData: props.content
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createQuestionData = this.createQuestionData.bind(this);
-    this.fetchQuiz = this.fetchQuiz.bind(this);
+    //this.fetchQuiz = this.fetchQuiz.bind(this);
     this.nextModule = this.nextModule.bind(this);
     this.previousModule = this.previousModule.bind(this);
   }
 
+  /*
   fetchQuiz() {
     let path = "courses/" + this.course + '/modules/' + this.quizid;
     let modulesdb = this.database.ref("courses/" + this.course + '/modules/' + this.quizid);
@@ -36,9 +40,11 @@ class QuizComponent extends React.Component
     })
     console.log(this.state.quizData);
   }
-  componentDidMount() {
-    this.fetchQuiz();
+  */
 
+  componentDidMount() {
+    //this.fetchQuiz();
+    this.createQuestionData();
 
   }
 
@@ -117,7 +123,7 @@ class QuizComponent extends React.Component
   }
 
   render()
-  {    
+  {
 
     if (!this.state.submitted) {
       return <div class = "quiz">
@@ -147,7 +153,7 @@ class QuizComponent extends React.Component
       {message}
       </div>;
     }
-    
+
   }
 }
 

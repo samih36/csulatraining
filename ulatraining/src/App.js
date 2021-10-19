@@ -21,8 +21,8 @@ import CreateModule from './ProfessorCourses/CreateModule';
 import ReadingModule from './Text/ReadingModule.js';
 import SelectCourse from './MyCourses/SelectCourse.js';
 import ModuleSelector from './ModuleSelector.js';
-import ModulePage from './ModulePage.js'
-import CourseHome from './CourseHome.js'
+import Module from './Module.js'
+import StudentCourseView from './StudentCourseView.js'
 import QuizCreationForm from './Quiz/QuizCreationForm';
 const database = firebase.database();
 
@@ -47,10 +47,12 @@ class App extends Component {
               <PrivateRoute exact path ="/create-course" component={(props) => <CreateCourse database={database} />} />
               <PrivateRoute exact path ="/create-module/:cid" component={(props) => <CreateModule database={database} />} />
               <PrivateRoute exact path ="/create-quiz/:cid" component={(props) => <QuizCreationForm {...props} database={database} />} />
-              <PrivateRoute exact path ="/course/:cid/quiz/:mid" component={(props) => <QuizComponent {...props} database={database} />} />
+              {
+                //<PrivateRoute exact path ="/course/:cid/quiz/:mid" component={(props) => <QuizComponent {...props} database={database} />} />
+              }
               <PrivateRoute exact path ='/add-course' component={(props) => <SelectCourse database={database} /> } />
-              <PrivateRoute exact path="/course/:cid" component={(props) => <CourseHome database={database}/>} />
-              <PrivateRoute exact path="/course/:cid/:mid" component={(props) => <ModulePage database={database}/>} />
+              <PrivateRoute exact path="/course/:cid" component={(props) => <StudentCourseView database={database}/>} />
+              <PrivateRoute exact path="/course/:cid/:mid" component={(props) => <Module database={database}/>} />
               {/* hard coded class above for now, will change later*/}
               {/* <PrivateRoute exact path="/dev" component={(props) => <DevFeatureSelector {...props} database={database} />} /> */}
               <PrivateRoute exact path="/hello" component={(props) => <Hello {...props} database={database} />} />
