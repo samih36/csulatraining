@@ -14,10 +14,10 @@ class QuizCreationForm extends React.Component
     this.uid = props.uid; // user id
     this.courseid = this.props.match.params.cid; // course name
     this.state = {
-      mod: props.mod, // the zero-based index of the module
+      mod: 0,
       renderedQuestions: [],
       newQuestionType : "mco",
-      
+
       q_open: false,
       q_choices: 4,
       q_a1: '',
@@ -28,9 +28,9 @@ class QuizCreationForm extends React.Component
       q_correct_choice: 'A',
 
       values: {
-        "id": "1",
+        //"id": "1",
         "questionNum": 0,
-        "courseNum": "1",
+        //"courseNum": "1",
         "name": "",
         "moduleNum": "0",
         "passPercentage": 0.6,
@@ -39,22 +39,32 @@ class QuizCreationForm extends React.Component
         "showFeedback": true,
         "questions": []
       }
-        }   
+        }
 
         this.submitForm = this.submitForm.bind(this);
         this.formChange = this.formChange.bind(this);
         this.newQuestion = this.newQuestion.bind(this);
         this.createQuestion = this.createQuestion.bind(this);
-    }   
+    }
+
+    componentDidMount()
+    {
+        this.database.ref("courses").child(this.courseid).child("modules").once('value').then(snapshot => {
+            if (snapshot.exists())
+            {
+                this.setState({mod: Object.keys(snapshot.val()).length});
+            }
+        });
+    }
 
     save() {
         alert('Quiz Created!');
         let modulesdb = this.database.ref("courses/" + this.courseid + '/modules');
-        let quizNode = modulesdb.child(this.state.values.name);
+        let quizNode = modulesdb.child(this.state.mod);
         quizNode.update(this.state.values).then(response => {window.location.href=`/course/${this.courseid}`});
     }
 
-    formChange(event) { 
+    formChange(event) {
         let valuescp = Object.assign({},this.state.values);
         valuescp[event.target.id] = event.target.value;
         this.setState({values: valuescp});
@@ -89,7 +99,7 @@ class QuizCreationForm extends React.Component
         let q_json = {
             type: "mco",
             choice_num: 4,
-            text: this.state.q_text, 
+            text: this.state.q_text,
             answers: [this.state.q_a1, this.state.q_a2, this.state.q_a3, this.state.q_a4],
             correctChoices: [this.state.q_correct_choice]
         }
@@ -144,7 +154,7 @@ class QuizCreationForm extends React.Component
         //         type: "mco",
         //         choice_num: 4,
         //         text: "",
-        //         answers: 
+        //         answers:
         //         [
         //             "", "", "", ""
         //         ],
@@ -170,7 +180,7 @@ class QuizCreationForm extends React.Component
     //         let question = <div id = {"question" + this.state.values.questionNum}>
     //             <p>{this.state.values.questionNum})</p>
     //             <div className="nested-form">
-    //                 <textarea rows="2" cols="80" value={this.state.questions[this.state.values.questionNum - 1].text} onChange={(event) =>{ 
+    //                 <textarea rows="2" cols="80" value={this.state.questions[this.state.values.questionNum - 1].text} onChange={(event) =>{
     //                     this.setState(function(state, props) {
     //                         let newQuestionObj = Object.assign({}, this.state.questions[this.state.values.questionNum - 1]);
     //                         newQuestionObj.text = event.target.value;
@@ -189,7 +199,7 @@ class QuizCreationForm extends React.Component
     render() {
         let open_question = <div className="nested-form">
         <label for="q-itself">Question:</label>
-        <textarea id="q-itself" rows="2" cols="80" value={this.state.q_text} onChange={(event) =>{ 
+        <textarea id="q-itself" rows="2" cols="80" value={this.state.q_text} onChange={(event) =>{
             this.setState({q_text: event.target.value});}}></textarea>
         <div><p>{String.fromCharCode(65 + 0)})</p> <input id ="q_a1" type="text" value={this.state.q_a1} onChange = {(e) => {this.setState({q_a1: e.target.value});}}/></div>
         <div><p>{String.fromCharCode(65 + 1)})</p> <input value={this.state.q_a2} onChange = {e => this.setState({q_a2: e.target.value})}/></div>

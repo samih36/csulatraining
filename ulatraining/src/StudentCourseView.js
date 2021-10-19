@@ -10,7 +10,7 @@ export default function StudentCourseView(props) {
     const { currentUser } = useAuth();
     const database = props.database;
     const [modules, setModules] = useState({});
-    let professor = false;
+    const [professor, setProfessor] = useState(false);
     useEffect(() => {
         database.ref('courses').child(courseID).child('modules').once('value').then(snapshot => {
             if (snapshot.exists())
@@ -24,7 +24,7 @@ export default function StudentCourseView(props) {
         });
 
         database.ref('courses').child(courseID).child('professor').once('value').then(snapshot => {
-            professor = snapshot.exists() && snapshot.val();
+            setProfessor(snapshot.exists() && snapshot.val());
         });
     });
 
