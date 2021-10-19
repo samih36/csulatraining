@@ -50,7 +50,7 @@ export default function SelectCourse(props) {
                 let content = snapshot.val();
                 for (const mod in content.modules)
                 {
-                    content.modules[mod] = false;
+                    content.modules[mod] = 0;
                 }
                 database.ref('users').child(currentUser.uid).child('courses').child(course).set(content);
             }

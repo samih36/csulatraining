@@ -11,7 +11,7 @@ export default function ReadingModule(props)
     const _module = props.content;
 
     const handleAdvanceClick = event =>
-        database.ref('students').child(currentUser.uid).child('courses').child(cid).child('modules').child(mod).set(true);
+        database.ref('students').child(currentUser.uid).child('courses').child(cid).child('modules').child(mod).set(100);
 
     return <div>
         <h2>{_module.name}</h2>
