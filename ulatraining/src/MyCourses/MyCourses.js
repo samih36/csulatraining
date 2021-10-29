@@ -10,14 +10,37 @@ export default function MyCourses(props) {
     const { currentUser } = useAuth();
     const database = props.database;
     const [courses, setCourses] = useState({});
+    const [completion, setCompletion] = useState(false);
+    const [passPercentage, setPassPercentage] = useState({});
 
     useEffect(() => {
         database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
-            if (snapshot.exists())
-            {
+            console.log(snapshot.val());
+            if (snapshot.exists()) {
                 setCourses(snapshot.val());
+
+            }
+            for(let courseID in courses) {
+                let scores = {};
+                let percentages = {};
+                database.ref('users').child(currentUser.uid).child('courses').child(courseID).on('value', snapshot => {
+                    console.log(snapshot.val().modules);
+                    scores = snapshot.val().modules;
+                })
+
+        
+                database.ref('courses').child(courseID).child('modules').on('value', snapshot => {
+                    let quizzes = snapshot.val();
+                    for(let key in quizzes) {
+                        quizzes[key].type === 'quiz' ? percentages[key] = quizzes[key].passPercentage : percentages[key] = 1;
+                    }
+                })
+                console.log('quiz');
+                console.log(scores)
+                console.log(percentages)
             }
         });
+
     }, []);
 
     return (
@@ -28,13 +51,13 @@ export default function MyCourses(props) {
                         <div className="coursesHeader">courses</div>
 
                         {Object.keys(courses).map((cid) => {
-                            return (<div className="course" onClick={event => window.location.href=`/course/${cid}`}>{courses[cid].name}</div>)
+                            return (<div className="course" key={cid} onClick={event => window.location.href=`/course/${cid}`}>{courses[cid].name}</div>)
                         })}
                     </Grid>
                     <Grid item xs={3}>
                         <div className="coursesHeader">Progress</div>
                         {Object.keys(courses).map((cid) => {
-                            return (<div className="course">0%</div>)
+                            return (<div key={cid} className="course">0%</div>)
                         })}
                     </Grid>
                     <Grid item xs={2}>
