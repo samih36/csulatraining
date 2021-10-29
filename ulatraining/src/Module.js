@@ -13,14 +13,25 @@ export default function Module(props)
 
     const [_module, setModule] = useState({});
     const [completed, setCompleted] = useState(false);
+    const [nextModule, setNextModule] = useState()
 
     useEffect(() => {
         // console.log(cid);
-        console.log(mid);
+        database.ref('courses').child(cid).child('modules').once('value').then(snapshot => {
+            console.log(Object.keys(snapshot.val()));
+            let moduleIndex = Object.keys(snapshot.val()).indexOf(mid);
+            console.log(moduleIndex);
+            if (moduleIndex == Object.keys(snapshot.val()).length - 1 || moduleIndex == -1) {
+                setNextModule(false);
+            } else {
+                setNextModule(Object.keys(snapshot.val())[moduleIndex + 1]);
+            }
+        });
+
         database.ref('courses').child(cid).child('modules').child(mid).once('value').then(snapshot => {
-            if (snapshot.exists())
+            if (snapshot.exists()) {
                 setModule(snapshot.val());
-            else setCompleted(true);
+            } else setCompleted(true);
         });
     }, []);
 
@@ -31,8 +42,8 @@ export default function Module(props)
         </div>;
 
     if (_module.type == "text")
-        return <ReadingModule key={mid} database={database} mid={mid} cid={cid} content={_module}/>
+        return <ReadingModule key={mid} database={database} mid={mid} cid={cid} content={_module} nextModule={nextModule} />
     else if (_module.type == "quiz")
-        return <QuizComponent key={mid} database={database} mid={mid} cid={cid} uid={currentUser.uid} content={_module}/>
+        return <QuizComponent key={mid} database={database} mid={mid} cid={cid} uid={currentUser.uid} content={_module} nextModule={nextModule} />
     else return null;
 }

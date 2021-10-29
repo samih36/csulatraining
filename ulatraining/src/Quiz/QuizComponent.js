@@ -11,6 +11,7 @@ class QuizComponent extends React.Component
     this.uid = props.uid; // user id
     this.course = props.cid;
     this.quizid = props.mid;
+    this.next = props.nextModule;
 
     //this.course = this.props.match.params.cid; // course name
     //this.quizid = this.props.match.params.mid;
@@ -106,15 +107,22 @@ class QuizComponent extends React.Component
 
   handleSubmit(event) {
     event.preventDefault();
-    // for (let i = 0; i < this.state.questions.length; i++) {
-    //   alert(this.state.questions[i].props.answer);
-    // }
+    let bestScore = 0;
+    this.database.ref('users').child(this.uid).child('courses').child(this.course).child('modules').child(this.quizid).once('value').then(snapshot =>{
+      if(snapshot.exists()) {
+        bestScore = snapshot.val();
+      }
+    })
+    if ((this.getQuizResult() * 100) > bestScore) {
+      this.database.ref('users').child(this.uid).child('courses').child(this.course).child('modules').child(this.quizid).set(this.getQuizResult() * 100);
+    }
+
     this.setState({submitted: true})
   }
 
   nextModule(event) {
     //do Something
-    window.location.href=`/course/${this.course}`
+    window.location.href=`/course/${this.course}/${this.next}`
   }
 
   previousModule(event) {
