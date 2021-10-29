@@ -43,11 +43,12 @@ export default function StudentCourseView(props) {
 
     const renderCourses = (mid) => {
         let passingPercentage = 1;
-        database.ref('courses').child(courseID).child('modules').child(mid).once('value').then(snapshot => {
+        database.ref('courses').child(courseID).child('modules').child(mid).on('value', snapshot => {
             if (snapshot.val().type === 'quiz') {
                 passingPercentage = snapshot.val().passPercentage;
                 console.log(passingPercentage);
-            }
+                console.log(completion[mid])
+            } 
         });
 
         return completion[mid] >= (100 * passingPercentage) ? 
