@@ -30,15 +30,30 @@ export default function StudentCourseView(props) {
         });
 
         database.ref('users').child(currentUser.uid).child('courses').child(courseID).on('value', snapshot => {
+            console.log(snapshot.val());
             setCompletion(snapshot.val().modules);
         })
 
-                /*database.ref('users').child(currentUser.uid).child('courses').child(courseID).child('modules').once('value').then(snapshot => {
-                    if (snapshot.exists())
-                        setCompletion(snapshot.val());
-                });*/
+                // database.ref('users').child(currentUser.uid).child('courses').child(courseID).child('modules').once('value').then(snapshot => {
+                //     if (snapshot.exists())
+                //         setCompletion(snapshot.val());
+                // });
     }, []);
 
+
+    const renderCourses = (mid) => {
+        let passingPercentage = 1;
+        database.ref('courses').child(courseID).child('modules').child(mid).once('value').then(snapshot => {
+            if (snapshot.val().type === 'quiz') {
+                passingPercentage = snapshot.val().passPercentage;
+                console.log(passingPercentage);
+            }
+        });
+
+        return completion[mid] >= (100 * passingPercentage) ? 
+                    <div className='completedCourse' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div> : 
+                    <div className='course' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div>
+    }
     // This needs to be migrated to a new ProfessorCourseView
     // Or this component can be generalized
     // Commenting it out because it wasn't functional yet anyway
@@ -71,9 +86,7 @@ export default function StudentCourseView(props) {
             <h1>Modules</h1>
             {
                 Object.keys(modules).map(mid => {
-                    return completion[mid] === 100 ? 
-                    <div className='completedCourse' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div> : 
-                    <div className='course' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div>
+                    return renderCourses(mid);
                 })
             }
 

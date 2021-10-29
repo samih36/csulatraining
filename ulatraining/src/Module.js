@@ -44,6 +44,6 @@ export default function Module(props)
     if (_module.type == "text")
         return <ReadingModule key={mid} database={database} mid={mid} cid={cid} content={_module} nextModule={nextModule} />
     else if (_module.type == "quiz")
-        return <QuizComponent key={mid} database={database} mid={mid} cid={cid} uid={currentUser.uid} content={_module}/>
+        return <QuizComponent key={mid} database={database} mid={mid} cid={cid} uid={currentUser.uid} content={_module} nextModule={nextModule} />
     else return null;
 }
