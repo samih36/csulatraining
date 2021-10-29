@@ -1,9 +1,5 @@
-// Contains a set of buttons to switch between test features that we want to look at
-// Until we get a working site this will let us see where we're at
-
 import React from 'react';
 import QuizComponent from './Quiz/QuizComponent.js';
-import ReadingModule from './Text/ReadingModule.js';
 import QuizCreationForm from "./Quiz/QuizCreationForm.js";
 
 class DevFeatureSelector extends React.Component

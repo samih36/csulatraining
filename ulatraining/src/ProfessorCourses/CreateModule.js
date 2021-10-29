@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
 import './ProfessorCourses.css';
 import { useParams } from 'react-router-dom'
 
 export default function CreateModule(props) {
     let courseID = useParams().cid;
-    const {currentUser} = useAuth();
+    // const {currentUser} = useAuth();
     const database = props.database;
     const [courses, setCourses] = useState({});
 

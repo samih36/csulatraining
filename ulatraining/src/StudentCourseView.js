@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import { useAuth } from "./contexts/AuthContext";
 import { useParams } from 'react-router-dom'
 
@@ -9,9 +7,12 @@ export default function StudentCourseView(props) {
 
     const { currentUser } = useAuth();
     const database = props.database;
-    const [modules, setModules] = useState({});
-    const [completion, setCompletion] = useState({});
+    const [modules, setModules] = useState(false);
+    const [completion, setCompletion] = useState(false);
     const [professor, setProfessor] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [passPercentage, setPassPercentage] = useState({});
+    
     useEffect(() => {
         database.ref('courses').child(courseID).child('modules').once('value').then(snapshot => {
             if (snapshot.exists())
@@ -30,9 +31,18 @@ export default function StudentCourseView(props) {
         });
 
         database.ref('users').child(currentUser.uid).child('courses').child(courseID).on('value', snapshot => {
-            console.log(snapshot.val());
+            // console.log(snapshot.val().modules);
             setCompletion(snapshot.val().modules);
         })
+
+        database.ref('courses').child(courseID).child('modules').on('value', snapshot => {
+            let quizzes = snapshot.val();
+            for(let key in quizzes) {
+                quizzes[key].type === 'quiz' ? passPercentage[key] = quizzes[key].passPercentage : passPercentage[key] = 1;
+            }
+        })
+
+        setLoading(false)
 
                 // database.ref('users').child(currentUser.uid).child('courses').child(courseID).child('modules').once('value').then(snapshot => {
                 //     if (snapshot.exists())
@@ -41,20 +51,6 @@ export default function StudentCourseView(props) {
     }, []);
 
 
-    const renderCourses = (mid) => {
-        let passingPercentage = 1;
-        database.ref('courses').child(courseID).child('modules').child(mid).on('value', snapshot => {
-            if (snapshot.val().type === 'quiz') {
-                passingPercentage = snapshot.val().passPercentage;
-                console.log(passingPercentage);
-                console.log(completion[mid])
-            } 
-        });
-
-        return completion[mid] >= (100 * passingPercentage) ? 
-                    <div className='completedCourse' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div> : 
-                    <div className='course' onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div>
-    }
     // This needs to be migrated to a new ProfessorCourseView
     // Or this component can be generalized
     // Commenting it out because it wasn't functional yet anyway
@@ -81,23 +77,30 @@ export default function StudentCourseView(props) {
         else return '#C8C8C8';
     };
     */
-
-    return(
-        <div>
-            <h1>Modules</h1>
-            {
-                Object.keys(modules).map(mid => {
-                    return renderCourses(mid);
-                })
-            }
-
-            {professor && <div>
-                    <h4>Create New Module:</h4>
-                    <button type = "button" onClick={event=>window.location.href=`/create-module/${courseID}`}>Reading</button>
-                    <button type = "button" onClick={event=>window.location.href=`/create-quiz/${courseID}`}>Quiz</button>
-                </div>
-            }
-
-        </div>
-    )
-}
+    if (!loading) {
+        return(
+            <div>
+                <h1>Modules</h1>
+                {
+                    Object.keys(modules).map(mid => {
+                        return completion[mid] >= (passPercentage[mid] * 100) ? 
+                            <div className='completedCourse' key={mid} onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div> : 
+                            <div className='course' key={mid} onClick={event => window.location.href=`/course/${courseID}/${mid}`}>{modules[mid].name}</div>
+                    })
+                }
+    
+                {professor && <div>
+                        <h4>Create New Module:</h4>
+                        <button type = "button" onClick={event=>window.location.href=`/create-module/${courseID}`}>Reading</button>
+                        <button type = "button" onClick={event=>window.location.href=`/create-quiz/${courseID}`}>Quiz</button>
+                    </div>
+                }
+    
+            </div>
+        )
+    } else {
+        return <h1>Modules</h1>
+    }
+    
+    }
+    

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useAuth } from "../contexts/AuthContext";
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 
 export default function ReadingModule(props)
 {
     const { currentUser } = useAuth();
     const database = props.database;
     const mid = props.mid;
-    let midInt = parseInt(mid, 10);
     const cid = props.cid;
     const _module = props.content;
     const next = props.nextModule;

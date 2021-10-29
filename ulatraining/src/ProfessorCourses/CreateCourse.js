@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
 import './ProfessorCourses.css'
 

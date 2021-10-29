@@ -29,6 +29,7 @@
 
 .course {
     background-color: #C8C8C8;
+    justify-content: center;
     width: 95%;
     border-radius: 10px;
     font-size: 28px;
@@ -37,6 +38,7 @@
 }
 
 .completedCourse {
+    justify-content: center;
     background-color: #28c900;
     width: 95%;
     border-radius: 10px;

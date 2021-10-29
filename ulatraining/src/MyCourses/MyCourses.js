@@ -18,7 +18,7 @@ export default function MyCourses(props) {
                 setCourses(snapshot.val());
             }
         });
-    },[]);
+    }, []);
 
     return (
         <div className="container">

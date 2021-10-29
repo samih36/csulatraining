@@ -32,7 +32,7 @@ export default function ModuleSelector(props)
                         ix++;
                     else break;
                 }
-                if (ix == Object.keys(modules).length)
+                if (ix === Object.keys(modules).length)
                     setCompleted(true);
                 setIndex(ix);
             }

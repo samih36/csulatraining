@@ -5,7 +5,6 @@ import firebase from 'firebase';
 import './App.css';
 import Hello from './Hello.js';
 import Welcome from './Welcome/Welcome.js'
-import DevFeatureSelector from './DevFeatureSelector.js';
 import Signup from './Signup.js';
 import { AuthProvider } from './contexts/AuthContext';
 import Login from './Login.js';
@@ -13,14 +12,10 @@ import Header from './Header.js';
 import PrivateRoute from './PrivateRoute.js';
 import ForgotPassword from './ForgotPassword.js';
 import MyCourses from './MyCourses/MyCourses.js';
-import QuizComponent from './Quiz/QuizComponent';
-
 import ProfessorCourses from './ProfessorCourses/ProfessorCourses';
 import CreateCourse from './ProfessorCourses/CreateCourse';
 import CreateModule from './ProfessorCourses/CreateModule';
-import ReadingModule from './Text/ReadingModule.js';
 import SelectCourse from './MyCourses/SelectCourse.js';
-import ModuleSelector from './ModuleSelector.js';
 import Module from './Module.js'
 import StudentCourseView from './StudentCourseView.js'
 import QuizCreationForm from './Quiz/QuizCreationForm';

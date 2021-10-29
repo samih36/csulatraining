@@ -29,7 +29,7 @@ class QuizComponent extends React.Component
     this.createQuestionData = this.createQuestionData.bind(this);
     //this.fetchQuiz = this.fetchQuiz.bind(this);
     this.nextModule = this.nextModule.bind(this);
-    this.previousModule = this.previousModule.bind(this);
+    this.tryAgain = this.tryAgain.bind(this);
   }
 
   /*
@@ -120,14 +120,16 @@ class QuizComponent extends React.Component
     this.setState({submitted: true})
   }
 
-  nextModule(event) {
-    //do Something
-    window.location.href=`/course/${this.course}/${this.next}`
+  nextModule() {
+    if (!this.next) {
+      window.location.href = `/course/${this.course}`;
+  } else {
+      window.location.href = `/course/${this.course}/${this.next}`;
   }
+}
 
-  previousModule(event) {
-    //do Something
-    window.location.href=`/course/${this.course}`
+  tryAgain() {
+    window.location.href=`/course/${this.course}/${this.quizid}`
   }
 
   render()
@@ -150,7 +152,7 @@ class QuizComponent extends React.Component
       </form>
     </div>;
     } else {
-      let message = <div><p>Sorry you have failed</p><br/><button type="button" onClick={this.previousModule}>Previous Module</button></div>;
+      let message = <div><p>Sorry you have failed</p><br/><button type="button" onClick={this.tryAgain}>Try Again</button><button type="button" onClick={() => window.location.href = `/course/${this.course}`}>Return to Course Page</button></div>;
       if (this.getQuizResult() >= this.state.quizData.passPercentage) {
         message = <div><p>Congratulations, you have passed!</p><br/><button type="button" onClick={this.nextModule}>Next Module</button></div>;
       }

@@ -13,15 +13,13 @@ export default function Module(props)
 
     const [_module, setModule] = useState({});
     const [completed, setCompleted] = useState(false);
-    const [nextModule, setNextModule] = useState()
-
+    const [nextModule, setNextModule] = useState(undefined);
+    const [loading, setLoading] = useState(true)
+;
     useEffect(() => {
-        // console.log(cid);
         database.ref('courses').child(cid).child('modules').once('value').then(snapshot => {
-            console.log(Object.keys(snapshot.val()));
             let moduleIndex = Object.keys(snapshot.val()).indexOf(mid);
-            console.log(moduleIndex);
-            if (moduleIndex == Object.keys(snapshot.val()).length - 1 || moduleIndex == -1) {
+            if (moduleIndex === Object.keys(snapshot.val()).length - 1 || moduleIndex === -1) {
                 setNextModule(false);
             } else {
                 setNextModule(Object.keys(snapshot.val())[moduleIndex + 1]);
@@ -33,17 +31,23 @@ export default function Module(props)
                 setModule(snapshot.val());
             } else setCompleted(true);
         });
+
+        setLoading(false);
     }, []);
 
-    if (completed)
-        return <div>
-            <h1>You have completed this course!</h1>
-            <input type='button' value='Return to Course Home' onClick={event => window.location.href = `/course/${cid}`}/>
-        </div>;
+    if (loading || nextModule === undefined) {
+        return null;
+    }
 
-    if (_module.type == "text")
+    // if (completed)
+    //     return <div>
+    //         <h1>You have completed this course!</h1>
+    //         <input type='button' value='Return to Course Home' onClick={event => window.location.href = `/course/${cid}`}/>
+    //     </div>;
+
+    if (_module.type === "text")
         return <ReadingModule key={mid} database={database} mid={mid} cid={cid} content={_module} nextModule={nextModule} />
-    else if (_module.type == "quiz")
+    else if (_module.type === "quiz")
         return <QuizComponent key={mid} database={database} mid={mid} cid={cid} uid={currentUser.uid} content={_module} nextModule={nextModule} />
     else return null;
 }
