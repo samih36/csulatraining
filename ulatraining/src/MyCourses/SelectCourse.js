@@ -9,38 +9,41 @@ export default function SelectCourse(props) {
     const { currentUser } = useAuth();
     const database = props.database;
     const [courses, setCourses] = useState({});
-    //const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        database.ref('courses').on("value", (snapshot) => {
-            if (snapshot.exists()) {
-                let snap = snapshot.val();
-                let _courses = {...courses};
-                for (const key in snap)
-                {
-                    _courses[key] = snap[key].name;
+        if (loading) {
+            database.ref('courses').on("value", (snapshot) => {
+                if (snapshot.exists()) {
+                    let snap = snapshot.val();
+                    let _courses = {...courses};
+                    for (const key in snap)
+                    {
+                        _courses[key] = snap[key].name;
+                    }
+                    setCourses(_courses);
                 }
-                setCourses(_courses);
-            }
-        });
-        database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
-            if (snapshot.exists())
-            {
-                let myCourses = snapshot.val();
-                let _courses = {...courses};
-                for (const c in myCourses)
+            });
+            database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
+                if (snapshot.exists())
                 {
-                    if (_courses[c])
-                        delete _courses[c];
+                    let myCourses = snapshot.val();
+                    let _courses = {...courses};
+                    for (const c in myCourses)
+                    {
+                        if (_courses[c])
+                            delete _courses[c];
+                    }
+                    setCourses(_courses);
+                    setLoading(false)
                 }
-                setCourses(_courses);
-            }
-            else
-            {
-                console.log('no courses');
-            }
-        });
-    }, []);
+                else
+                {
+                    console.log('no courses');
+                }
+            });
+        }
+    }, [courses]);
 
 
     const handleAddcourse = (course) => {
@@ -85,7 +88,9 @@ export default function SelectCourse(props) {
 
     }
     */
-
+    if (loading) {
+        return null;
+    }
     return (<div className="container">
         <Box sx={{ flexGrow: 0 }}>
             <Grid container spacing={2}>
