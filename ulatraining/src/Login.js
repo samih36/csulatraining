@@ -20,7 +20,12 @@ export default function Login() {
             setError('');
             setLoading(true);
             await login(emailRef.current.value, passwordRef.current.value);
-            history.push("/my-courses");
+            if (role == "professor") {
+                history.push("/professor-courses")
+            } else {
+                history.push("/my-courses");
+            }
+
         } catch {
             setError('Failed to sign in');
 
