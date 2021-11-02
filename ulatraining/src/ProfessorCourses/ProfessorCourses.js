@@ -10,42 +10,40 @@ export default function ProfessorCourses(props) {
     const database = props.database;
     const [courses, setCourses] = useState({});
 
+    // Only run once on component mount
     useEffect(() => {
-
         database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
             if (snapshot.exists())
-            {
                 setCourses(snapshot.val());
-            }
         });
+    }, []);
 
-    });
+    return <div className="container">
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={1}>
+                <Grid item xs={7}>
+                    <div className="coursesHeader">Courses</div>
 
-    return (
-        <div className="container">
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item xs={7}>
-                        <div className="coursesHeader">courses</div>
-
-                        {Object.keys(courses).map((cid) => {
-                            return (<div className="course" onClick={event => window.location.href=`/course/${cid}`}>{courses[cid].name}</div>)
-                        })}
-                    </Grid>
-                    <Grid item xs={3}>
-                        <div className="coursesHeader">Progress</div>
-                        {Object.keys(courses).map((cid) => {
-                            return (<div className="course">0%</div>)
-                        })}
-
-                    </Grid>
-                    <Grid item xs={2}>
-                        <div className="createClass" onClick={event => window.location.href='create-course'}>create course</div>
-                    </Grid>
-
+                    // TODO make this go to a course-specific professor view
+                    // List of all courses
+                    {Object.keys(courses).map((cid) =>
+                        <div className="course" onClick={event => window.location.href=`/course/${cid}`}>{courses[cid].name}</div>
+                    )}
 
                 </Grid>
-            </Box>
-        </div>
-    );
+                <Grid item xs={3}>
+                    <div className="coursesHeader">Progress</div>
+                    {Object.keys(courses).map((cid) => {
+                        return (<div className="course">0%</div>)
+                    })}
+
+                </Grid>
+                <Grid item xs={2}>
+                    <div className="createClass" onClick={event => window.location.href='create-course'}>create course</div>
+                </Grid>
+
+
+            </Grid>
+        </Box>
+    </div>;
 }
