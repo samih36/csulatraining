@@ -31,7 +31,7 @@ class App extends Component {
       <div className="App">
         <AuthProvider>
           <Router>
-          <Route path="/" render={ ( props ) => ( props.location.pathname !== "/") && <Header /> } />
+          <Route path={["/"]} render={ ( props ) => ( props.location.pathname !== "/" && props.location.pathname !== "/login" && props.location.pathname !== "/login/professor" && props.location.pathname !== "/login/student" ) && <Header database ={database} /> } />
             <Switch>
               <Route exact path="/" component={Welcome} />
               <Route exact path = "/signup/:role?" component={(props) => <Signup database={database} />} />
@@ -40,8 +40,8 @@ class App extends Component {
               <PrivateRoute exact path ="/my-courses" component={(props) => <MyCourses database={database} />} database={database} role={'student'} />
               <PrivateRoute exact path ="/professor-courses" component={(props) => <ProfessorCourses database={database} />} database={database} role={'professor'} />
               <PrivateRoute exact path ="/create-course" component={(props) => <CreateCourse database={database} />} database={database} role={'professor'} />
-              <PrivateRoute exact path ="/create-module/:cid" component={(props) => <CreateModule database={database} />} database={database}  />
-              <PrivateRoute exact path ="/create-quiz/:cid" component={(props) => <QuizCreationForm {...props} database={database} />} database={database} />
+              <PrivateRoute exact path ="/create-module/:cid" component={(props) => <CreateModule database={database} />} database={database} role={'professor'} />
+              <PrivateRoute exact path ="/create-quiz/:cid" component={(props) => <QuizCreationForm {...props} database={database} />} database={database} role={'professor'}/>
               {
                 //<PrivateRoute exact path ="/course/:cid/quiz/:mid" component={(props) => <QuizComponent {...props} database={database} />} />
               }
