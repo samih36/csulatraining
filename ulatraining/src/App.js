@@ -38,7 +38,7 @@ class App extends Component {
               <Route exact path = "/login/:role?" component={Login} />
               <Route exact path = "/forgot-password" component={ForgotPassword} />
               <PrivateRoute exact path ="/my-courses" component={(props) => <MyCourses database={database} />} database={database} role={'student'} />
-              <PrivateRoute exact path ="/professor-courses" component={(props) => <ProfessorCourses database={database} />} database={database} role={'student'} />
+              <PrivateRoute exact path ="/professor-courses" component={(props) => <ProfessorCourses database={database} />} database={database} role={'professor'} />
               <PrivateRoute exact path ="/create-course" component={(props) => <CreateCourse database={database} />} database={database} role={'professor'} />
               <PrivateRoute exact path ="/create-module/:cid" component={(props) => <CreateModule database={database} />} database={database}  />
               <PrivateRoute exact path ="/create-quiz/:cid" component={(props) => <QuizCreationForm {...props} database={database} />} database={database} />
