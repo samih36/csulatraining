@@ -40,7 +40,7 @@ export default function SelectCourse(props) {
                 console.log('no courses');
             }
         });
-    });
+    }, []);
 
 
     const handleAddcourse = (course) => {
