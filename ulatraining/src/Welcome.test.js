@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Welcome from './Welcome/Welcome.js';
 import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
@@ -18,6 +18,8 @@ describe("Welcome component renders", () => {
         const wrapper = mount(<Welcome />);
         expect(getInnerHTML(wrapper.find('.welcome'))).toEqual("I am a...");
         expect(getInnerHTML(wrapper.find('.leftcolumn').find('.button'))).toEqual('Student');
+        // wrapper.find('.leftcolumn').find('.button').simulate('click');
+        // wrapper.find('.rightcolumn').find('.button').simulate('click');
         expect(getInnerHTML(wrapper.find('.rightcolumn').find('.button'))).toEqual('Professor');
-    })
+    });
 })
