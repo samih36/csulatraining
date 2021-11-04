@@ -7,14 +7,10 @@ import * as AuthContext from './contexts/AuthContext.js';
 import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import firebase from 'firebase';
+import { getInnerHTML } from './Welcome.test'
 
 configure({ adapter: new Adapter() });
 
-function getInnerHTML(node) {
-    return node.children().reduce((string, node) => {
-        return string + node.html() || node.text()
-    }, '')
-}
 
 describe("MyCourses component render with enrolled courses", () => {
     it("should show classes and progress", () => {

@@ -7,7 +7,7 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 configure({ adapter: new Adapter() });
 
 
-function getInnerHTML(node) {
+export function getInnerHTML(node) {
     return node.children().reduce((string, node) => {
         return string + node.html() || node.text()
     }, '')
