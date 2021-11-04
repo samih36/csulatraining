@@ -8,7 +8,6 @@ import './MyCourses.css';
 export default function MyCourses(props) {
 
     const { currentUser } = useAuth();
-    console.log(currentUser);
     const database = props.database;
     const [courses, setCourses] = useState({});
     const [progress, setProgress] = useState({});
@@ -84,8 +83,8 @@ export default function MyCourses(props) {
                             <div className="coursesHeader">Progress</div>
                             {Object.keys(courses).map((cid) => {
                                 return progress[cid] === 100 ?
-                                <div key={cid} className="completedCourse">{progress[cid]}% </div> :
-                                <div key={cid} className="course">{progress[cid]}% </div>
+                                <div key={cid} className="completedCourse">{progress[cid]}%</div> :
+                                <div key={cid} className="course">{progress[cid]}%</div>
                             })}
                         </Grid>
                         <Grid item xs={2}>

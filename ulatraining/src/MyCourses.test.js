@@ -10,6 +10,11 @@ import firebase from 'firebase';
 
 configure({ adapter: new Adapter() });
 
+function getInnerHTML(node) {
+    return node.children().reduce((string, node) => {
+        return string + node.html() || node.text()
+    }, '')
+}
 
 describe("MyCourses component render with enrolled courses", () => {
     it("should show classes and progress", () => {
@@ -43,37 +48,29 @@ describe("MyCourses component render with enrolled courses", () => {
             }
         }
 
-        let coursesSnapshot = {val: () => fakeCoursesSnapshot};
-        let progressSnapshot = {val: () => fakeCourseProgressSnapshot};
+        // let coursesSnapshot = {val: () => fakeCoursesSnapshot};
+        // let progressSnapshot = {val: () => fakeCourseProgressSnapshot};
 
         jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => user)
 
 
-        let fakeDatabase = {};
+        let fakeDatabase = firebase.database();
+        fakeDatabase.ref('users/testuid123/courses').set(fakeCoursesSnapshot);
+        fakeDatabase.ref('courses/mfklsdjfhfjdk/modules').set(fakeCourseProgressSnapshot);
 
-        jest.spyOn(firebase, 'database').mockImplementationOnce(() => ({
-            ref: jest.fn().mockReturnThis(),
-            on: jest.fn((event, callback) => callback(coursesSnapshot))
-        })).mockImplementationOnce(() => ({
-            ref: jest.fn().mockReturnThis(),
-            on: jest.fn((event, callback) => callback(progressSnapshot))
-        }));
-
-        // jest.spyOn(firebase, 'fakeDatabase').mockImplementationOnce(() => ({
+        // jest.spyOn(firebase, 'database').mockImplementationOnce(() => ({
         //     ref: jest.fn().mockReturnThis(),
-        //     on: jest.fn((event, callback) => callback(coursesSnapshot))
+        //     on: jest.fn(() => coursesSnapshot)
         // })).mockImplementationOnce(() => ({
         //     ref: jest.fn().mockReturnThis(),
-        //     on: jest.fn((event, callback) => callback(progressSnapshot))
+        //     on: jest.fn(() => progressSnapshot)
         // }));
 
-
         const wrapper = mount(<MyCourses database={fakeDatabase} />)
-        console.log(wrapper.debug());
-        expect(1).toEqual(2);
-
-
-
+        expect(getInnerHTML(wrapper.find('.coursesHeader').first())).toEqual('courses')
+        expect(getInnerHTML(wrapper.find('.course').first())).toEqual('COMP 123')
+        expect(getInnerHTML(wrapper.find('.coursesHeader').last())).toEqual('Progress')
+        expect(getInnerHTML(wrapper.find('.course').last())).toEqual('50%')
 
     })
 })
