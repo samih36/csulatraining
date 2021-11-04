@@ -26,35 +26,42 @@ export default function MyCourses(props) {
         return false;
     }
 
+    const loadCourses = () => {
+        database.ref(`users/${currentUser.uid}/courses`).on('value', snapshot => {
+            if (snapshot.exists()) {
+                setCourses(snapshot.val());
+            }
+        });
+    }
+
+    const loadCourseProgress = () => {
+        for(let courseID in courses) {
+            let scores = courses[courseID].modules;
+            let percentages = {};
+            let passCount = 0;
+
+    
+            database.ref(`courses/${courseID}/modules`).on('value', snapshot => {
+                let quizzes = snapshot.val();
+                for(let key in quizzes) {
+                    quizzes[key].type === 'quiz' ? percentages[key] = quizzes[key].passPercentage : percentages[key] = 1;
+                }
+            })
+
+            for(let module in scores) { 
+                if (scores[module] >= percentages[module]) {
+                    passCount++;
+                }
+            }
+            progress[courseID] = Math.round(((passCount / Object.keys(percentages).length) * 100));
+        }
+    }
+
     useEffect(() => {
         if (progressNotLoaded()) {
-            database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
-                if (snapshot.exists()) {
-                    setCourses(snapshot.val());
-
-                }
-            });
-            for(let courseID in courses) {
-                let scores = courses[courseID].modules;
-                let percentages = {};
-                let passCount = 0;
-
-        
-                database.ref('courses').child(courseID).child('modules').on('value', snapshot => {
-                    let quizzes = snapshot.val();
-                    for(let key in quizzes) {
-                        quizzes[key].type === 'quiz' ? percentages[key] = quizzes[key].passPercentage : percentages[key] = 1;
-                    }
-                })
-
-                for(let module in scores) { 
-                    if (scores[module] >= percentages[module]) {
-                        passCount++;
-                    }
-                }
-                progress[courseID] = Math.round(((passCount / Object.keys(percentages).length) * 100));
-            }
-        setLoading(false)
+            loadCourses();
+            loadCourseProgress();
+            setLoading(false)
         }
     }, [courses]);
 
@@ -76,8 +83,8 @@ export default function MyCourses(props) {
                             <div className="coursesHeader">Progress</div>
                             {Object.keys(courses).map((cid) => {
                                 return progress[cid] === 100 ?
-                                <div key={cid} className="completedCourse">{progress[cid]}% </div> :
-                                <div key={cid} className="course">{progress[cid]}% </div>
+                                <div key={cid} className="completedCourse">{progress[cid]}%</div> :
+                                <div key={cid} className="course">{progress[cid]}%</div>
                             })}
                         </Grid>
                         <Grid item xs={2}>
