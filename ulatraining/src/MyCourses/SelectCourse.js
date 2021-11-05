@@ -11,37 +11,48 @@ export default function SelectCourse(props) {
     const [courses, setCourses] = useState({});
     const [loading, setLoading] = useState(true);
 
+    const loadAllCourses = () => {
+        database.ref('courses').on("value", (snapshot) => {
+            if (snapshot.exists()) {
+                let snap = snapshot.val();
+                let _courses = {...courses};
+                for (const key in snap)
+                {
+                    _courses[key] = snap[key].name;
+                }
+                setCourses(_courses);
+            }
+        });
+    }
+
+    const removeUserCourses = () => {
+        database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
+            if (snapshot.exists())
+            {
+                let myCourses = snapshot.val();
+                let _courses = {...courses};
+                for (const c in myCourses)
+                {
+                    if (courses[c])
+                        delete _courses[c];
+                }
+                setCourses(_courses);
+                setLoading(false)
+            }
+            else
+            {
+                console.log('no courses');
+                setLoading(false)
+            }
+        });
+    }
+
+
+
     useEffect(() => {
         if (loading) {
-            database.ref('courses').on("value", (snapshot) => {
-                if (snapshot.exists()) {
-                    let snap = snapshot.val();
-                    let _courses = {...courses};
-                    for (const key in snap)
-                    {
-                        _courses[key] = snap[key].name;
-                    }
-                    setCourses(_courses);
-                }
-            });
-            database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
-                if (snapshot.exists())
-                {
-                    let myCourses = snapshot.val();
-                    let _courses = {...courses};
-                    for (const c in myCourses)
-                    {
-                        if (_courses[c])
-                            delete _courses[c];
-                    }
-                    setCourses(_courses);
-                    setLoading(false)
-                }
-                else
-                {
-                    console.log('no courses');
-                }
-            });
+            loadAllCourses();
+            removeUserCourses();
         }
     }, [courses]);
 
@@ -96,7 +107,6 @@ export default function SelectCourse(props) {
             <Grid container spacing={2}>
                 <Grid item xs={10}>
                     <div className="coursesHeader">classes</div>
-                    {/* hard coding a class in now, will later fetch the classes of the user and dynamically render*/}
                     {Object.keys(courses).map((cid) => {
                         return (<div className="course" key={cid} >{courses[cid]}</div>)
                     })}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import './firebaseConfig';
+import app from './firebaseConfig';
 import firebase from 'firebase';
 import './App.css';
 import Hello from './Hello.js';
@@ -20,7 +20,8 @@ import SelectCourse from './MyCourses/SelectCourse.js';
 import Module from './Module.js'
 import StudentCourseView from './StudentCourseView.js'
 import QuizCreationForm from './Quiz/QuizCreationForm';
-const database = firebase.database();
+
+const database = app.database();
 
 class App extends Component {
   // constructor(props) {

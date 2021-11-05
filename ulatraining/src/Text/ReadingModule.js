@@ -23,8 +23,8 @@ export default function ReadingModule(props)
 
     return <div>
         <input type='button' value='< Back' onClick={event => window.location.href = `/course/${cid}`}/>
-        <h2>{_module.name}</h2>
-        <p>{_module.content}</p>
+        <h2 className='moduleName'>{_module.name}</h2>
+        <p className='moduleContent'>{_module.content}</p>
         <br/>
         <input type='button' value='Advance' onClick={handleAdvanceClick}/>
     </div>;
