@@ -1,13 +1,12 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import Login from './Login.js';
-import { auth } from './firebaseConfig';
+import { mount } from 'enzyme';
 import MyCourses from './MyCourses/MyCourses.js';
 import * as AuthContext from './contexts/AuthContext.js';
 import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import firebase from 'firebase';
 import { getInnerHTML } from './Welcome.test'
+import testing from './testingFirebaseConfig.js'
 
 configure({ adapter: new Adapter() });
 
@@ -50,7 +49,7 @@ describe("MyCourses component render with enrolled courses", () => {
         jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => user)
 
 
-        let fakeDatabase = firebase.database();
+        let fakeDatabase = testing.database();
         fakeDatabase.ref('users/testuid123/courses').set(fakeCoursesSnapshot);
         fakeDatabase.ref('courses/mfklsdjfhfjdk/modules').set(fakeCourseProgressSnapshot);
 

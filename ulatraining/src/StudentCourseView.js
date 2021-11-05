@@ -17,7 +17,8 @@ export default function StudentCourseView(props) {
         database.ref('courses').child(courseID).child('modules').once('value').then(snapshot => {
             if (snapshot.exists())
             {
-                setModules(snapshot.val());
+                let mods = snapshot.val()
+                setModules(mods);
             }
             else
             {
@@ -41,7 +42,6 @@ export default function StudentCourseView(props) {
                 quizzes[key].type === 'quiz' ? passPercentage[key] = quizzes[key].passPercentage : passPercentage[key] = 1;
             }
         })
-
         setLoading(false)
 
                 // database.ref('users').child(currentUser.uid).child('courses').child(courseID).child('modules').once('value').then(snapshot => {
@@ -89,12 +89,12 @@ export default function StudentCourseView(props) {
                     })
                 }
     
-                {professor && <div>
+                {/* {professor && <div>
                         <h4>Create New Module:</h4>
                         <button type = "button" onClick={event=>window.location.href=`/create-module/${courseID}`}>Reading</button>
                         <button type = "button" onClick={event=>window.location.href=`/create-quiz/${courseID}`}>Quiz</button>
                     </div>
-                }
+                } */}
     
             </div>
         )
