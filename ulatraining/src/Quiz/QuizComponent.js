@@ -140,7 +140,7 @@ class QuizComponent extends React.Component
       <h2 className="quizTitle">{"Quiz for module " + this.state.quizData.moduleNum}</h2>
       <hr/>
       <form onSubmit = {this.handleSubmit}>
-      <div className = "questions">
+      <div className="questions">
         {this.state.questions}
       </div>
       <hr/>

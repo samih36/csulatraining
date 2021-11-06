@@ -17,7 +17,6 @@ class QuizCreationForm extends React.Component
       mod: 0,
       renderedQuestions: [],
       newQuestionType : "mco",
-
       q_open: false,
       q_choices: 4,
       q_a1: '',
