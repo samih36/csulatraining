@@ -25,12 +25,10 @@ export default function Login() {
             } else {
                 history.push("/my-courses");
             }
-
         } catch {
             setError('Failed to sign in');
 
         }
-
         setLoading(false);
     }
     return (
@@ -50,15 +48,15 @@ export default function Login() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" ref={passwordRef} required />
                         </Form.Group>
-                        <Button disabed={loading} className="w-100 mt-3" type="submit">Log In</Button>
+                        <Button disabed={loading ? 1 : 0} className="w-100 mt-3" type="submit">Log In</Button>
                     </Form>
                         <div className="w-100 text-center mt-3">
-                            <Link to="/forgot-password">Forgot Password</Link>
+                            <Button href="/forgot-password">Forgot Password</Button>
                         </div>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Link to={`/signup/${role}`}>Sign Up</Link>
+                Need an account? <Button href={`/signup/${role}`}>Sign Up</Button>
             </div>
             </div>
         </Container>
