@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import SelectCourse from './MyCourses/SelectCourse.js';
-import * as AuthContext from './contexts/AuthContext.js';
+import SelectCourse from '../MyCourses/SelectCourse.js';
+import * as AuthContext from '../contexts/AuthContext.js';
 import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import firebase from 'firebase';
 import { getInnerHTML } from './Welcome.test'
-import testing from './testingFirebaseConfig.js'
+import testing from '../testingFirebaseConfig.js'
 
 configure({ adapter: new Adapter() });
 
