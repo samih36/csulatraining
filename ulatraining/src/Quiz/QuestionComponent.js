@@ -60,12 +60,12 @@ class MultipleChoiceQuestionComponent extends QuestionComponent {
     let answers = this.data.answers;
     let answersRender = [];
     for (let i = 0; i < this.data.choice_num; i++) {
-      answersRender.push(<div className = "choice" key={groupid + String.fromCharCode(i+65)}>
-        <input className={`answerChoiceInput${String.fromCharCode(i + 65)}`} type={type} name = {groupid} value = {String.fromCharCode(i + 65)} onClick ={this.handleChange} />
-        <label className={`answerOption${String.fromCharCode(i + 65)}`} htmlFor={String.fromCharCode(i + 65)}>{answers[i]}</label>
+      answersRender.push(<div class = "choice" key={groupid + String.fromCharCode(i+65)}>
+        <input type={type} name = {groupid} value = {String.fromCharCode(i + 65)} onChange = {this.handleChange}/>
+        <label for={String.fromCharCode(i + 65)}>{answers[i]}</label>
       </div>)
     }
-    return <div className = "question mc" key={groupid}>
+    return <div class = "question mc" key={groupid}>
       <h3>{this.num + 1}. {this.data.text}</h3>
       <fieldset id={groupid}>
         {answersRender}
@@ -90,11 +90,11 @@ class ShortAnswerQuestionComponent extends QuestionComponent {
     let length = this.data.maxCharacters;
     let rows = Math.trunc(length / 100 - 1) + 1;
     let cols = 100;
-    return <div className = "question mc">
+    return <div class = "question mc">
       <h3>{this.num + 1}. {this.data.text}</h3>
       <textarea type="text" class = {groupid} rows = {rows} cols = {cols} maxLength = {length} onChange = {this.handleChange}>
       </textarea>
-      <br/><span className = "remaining-chars">Characters Remaining: {this.state.spaceLeft} </span>
+      <br/><span class = "remaining-chars">Characters Remaining: {this.state.spaceLeft} </span>
     </div>
   }
 }
