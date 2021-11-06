@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Welcome from './Welcome/Welcome.js';
+import Welcome from '../Welcome/Welcome.js';
 import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
