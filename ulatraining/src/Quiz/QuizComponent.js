@@ -54,7 +54,6 @@ class QuizComponent extends React.Component
       this.state.questionData[i] = new Set();
     }
     for (let x = 0; x < this.state.quizData.questionNum; x++) {
-      console.log(this.renderQuestion(x));
       this.state.questions = [...this.state.questions, this.renderQuestion(x)]
       }
     this.forceUpdate();
@@ -136,30 +135,30 @@ class QuizComponent extends React.Component
   {
 
     if (!this.state.submitted) {
-      return <div class = "quiz">
-      <h1>{this.course}</h1>
-      <h2>{"Quiz for module " + this.state.quizData.moduleNum} </h2>
+      return <div className = "quiz">
+      <h1 className="courseTitle">{this.course.name}</h1>
+      <h2 className="quizTitle">{"Quiz for module " + this.state.quizData.moduleNum}</h2>
       <hr/>
       <form onSubmit = {this.handleSubmit}>
-      <div class = "questions">
+      <div className = "questions">
         {this.state.questions}
       </div>
       <hr/>
       <p> {this.state.quizData.introduction} </p>
-      <input type="submit" value="Submit" onClick={this.handleAdvanceClick}/>
+      <input className='submitbutton' type="submit" value="Submit" onClick={this.handleSubmit}/>
       <br/>
-      <p class="passingPercentage">Minimum {(100 *this.state.quizData.passPercentage).toLocaleString(undefined, {minimumFractionDigits: 0})}% needed to pass </p>
+      <p className="passingPercentage">Minimum {(100 *this.state.quizData.passPercentage).toLocaleString(undefined, {minimumFractionDigits: 0})}% needed to pass </p>
       </form>
     </div>;
     } else {
       let message = <div><p>Sorry you have failed</p><br/><button type="button" onClick={this.tryAgain}>Try Again</button><button type="button" onClick={() => window.location.href = `/course/${this.course}`}>Return to Course Page</button></div>;
       if (this.getQuizResult() >= this.state.quizData.passPercentage) {
-        message = <div><p>Congratulations, you have passed!</p><br/><button type="button" onClick={this.nextModule}>Next Module</button></div>;
+        message = <div><p className="congrats">Congratulations, you have passed!</p><br/><button type="button" onClick={this.nextModule}>Next Module</button></div>;
       }
       return <div><h1>{this.course}</h1>
       <h2>{"Quiz for module " + this.state.quizData.moduleNum} </h2>
       <hr/>
-      <p>{"Score: " + (100 *this.getQuizResult()).toLocaleString(undefined, {maximumFractionDigits: 2}) + "%"}</p>
+      <p className="quizScore">{"Score: " + (100 *this.getQuizResult()).toLocaleString(undefined, {maximumFractionDigits: 2}) + "%"}</p>
       {message}
       </div>;
     }
