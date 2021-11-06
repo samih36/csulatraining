@@ -1,14 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import StudentCourseView from '../StudentCourseView.js';
-import * as AuthContext from '../contexts/AuthContext.js';
+import StudentCourseView from './StudentCourseView.js';
+import * as AuthContext from './contexts/AuthContext.js';
 import { configure } from "enzyme";
 import Router from 'react-router-dom'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import firebase from 'firebase';
 import { getInnerHTML } from './Welcome.test'
 import { act } from 'react-dom/test-utils';
-import testing from '../testingFirebaseConfig.js'
+import testing from './testingFirebaseConfig.js'
 
 
 configure({ adapter: new Adapter() });
