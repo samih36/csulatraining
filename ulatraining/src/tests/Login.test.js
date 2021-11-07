@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import Router from 'react-router-dom';
 import Login from '../Login.js';
 import * as AuthContext from '../contexts/AuthContext.js';
+import { AuthProvider } from '../contexts/AuthContext.js'
 import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { getInnerHTML } from './Welcome.test'
@@ -37,10 +38,10 @@ describe("Various Login/Signup/Password Screens Render", () => {
         jest.spyOn(Router, 'useParams').mockReturnValue({ role: 'student' })
         jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => useAuthObj)
 
-        const wrapper = mount(<Login />)
+        const wrapper = mount(<AuthProvider><Login /></AuthProvider>)
         await wrapInAct(wrapper);
-        // console.log(wrapper.debug());
         expect(getInnerHTML(wrapper.find('.text-center').first())).toEqual('Log In')
+
         // expect(getInnerHTML(wrapper.find('.moduleContent'))).toEqual('this is an example text module')
     });
 })
