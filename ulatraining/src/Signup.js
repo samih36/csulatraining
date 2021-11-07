@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
 import { useAuth } from './contexts/AuthContext';
-import { Link, useHistory, useParams } from 'react-router-dom'
+import {  useHistory, useParams } from 'react-router-dom'
 
 export default function Signup(props) {
     let {role} = useParams();
@@ -75,12 +75,12 @@ export default function Signup(props) {
                             <Form.Label>Password Confirmation</Form.Label>
                             <Form.Control type="password" ref={passwordConfirmRef} required />
                         </Form.Group>
-                        <Button disabed={loading} className="w-100 mt-3" type="submit">Sign Up</Button>
+                        <Button disabed={loading ? 1 : 0} className="w-100 mt-3" type="submit">Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Already have an account? <Link to="/login">Login</Link>
+                Already have an account? <Button href="/login">Login</Button>
             </div>
             </div>
         </Container>
