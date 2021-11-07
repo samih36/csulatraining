@@ -29,7 +29,12 @@ export default function Signup(props) {
             setError('');
             setLoading(true);
             await signup(emailRef.current.value, passwordRef.current.value, fNameRef.current.value, lNameRef.current.value, ONYENRef.current.value, role, database);
-            history.push('/my-courses');
+            if (role == "professor") {
+                history.push('/professor-courses');
+            } else {
+                history.push('/my-courses')
+            }
+
         } catch {
             setError('Failed to create an account');
 

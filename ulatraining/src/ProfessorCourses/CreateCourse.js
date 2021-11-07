@@ -30,15 +30,20 @@ export default function CreateCourse(props) {
             'professor': currentUser.uid
         })
 
+
+        database.ref(`users/${currentUser.uid}/courses/${newCoursePush.key}`).set({
+            'name': courseName,
+            'professor': currentUser.uid
+        })
     };
 
     return (<div className="container">
 
         <div className="createCourseHeader">Create a Course</div>
         <form>
-            <label for="courseTitle"> Course Title:</label>
+            <label className="courseTitleLabel" for="courseTitle">Course Title:</label>
             <input type="text" name="courseTitle" id="courseTitleInput"></input><br></br>
-            <button type="button" onClick={event=>handleCreateCourse(document.getElementById("courseTitleInput").value)}>Submit</button>
+            <button className="submitButton" type="button" onClick={event=>handleCreateCourse(document.getElementById("courseTitleInput").value)}>Submit</button>
         </form>
 
     </div>);

@@ -40,7 +40,7 @@ export default function CreateModule(props) {
         <form>
             <label for="moduleTitle"> Module Title:</label>
             <input type="text" name="moduleTitle" id="moduleTitleInput"></input><br></br>
-            <lable for="moduleContent"> Module Content</lable>
+            <label for="moduleContent"> Module Content</label>
             <textarea rows="4" cols="50" name="moduleContent" id="moduleContentInput"></textarea><br></br>
             <button type="button" onClick={event=>handleCreateModule(document.getElementById("moduleTitleInput").value, document.getElementById("moduleContentInput").value)}>Submit</button>
         </form>
