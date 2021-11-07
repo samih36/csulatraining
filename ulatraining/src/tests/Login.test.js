@@ -2,6 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Router from 'react-router-dom';
 import Login from '../Login.js';
+import Signup from '../Signup.js';
+import ForgotPassword from '../ForgotPassword.js'
 import * as AuthContext from '../contexts/AuthContext.js';
 import { AuthProvider } from '../contexts/AuthContext.js'
 import { configure } from "enzyme";
@@ -29,8 +31,12 @@ let useAuthObj = {
     currentUser: {
         uid: 'testuid123'
     },
-    login: {}
+    login: {},
+    signup: {},
+    resetPassword: {}
 }
+
+
 
 describe("Various Login/Signup/Password Screens Render", () => {
     it("should render the login screen", async () => {
@@ -41,7 +47,28 @@ describe("Various Login/Signup/Password Screens Render", () => {
         const wrapper = mount(<AuthProvider><Login /></AuthProvider>)
         await wrapInAct(wrapper);
         expect(getInnerHTML(wrapper.find('.text-center').first())).toEqual('Log In')
-
-        // expect(getInnerHTML(wrapper.find('.moduleContent'))).toEqual('this is an example text module')
     });
+    it("should render the signup screen", async () => {
+
+        jest.spyOn(Router, 'useParams').mockReturnValue({ role: 'student' })
+        jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => useAuthObj)
+
+        const wrapper = mount(<Signup />)
+        await wrapInAct(wrapper);
+
+        expect(getInnerHTML(wrapper.find('.text-center').first())).toEqual('Sign Up');
+    });
+    it("should render the forgot password screen", async () => {
+
+        jest.spyOn(Router, 'useParams').mockReturnValue({ role: 'student' })
+        jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => useAuthObj)
+
+        const wrapper = mount(<ForgotPassword />)
+        await wrapInAct(wrapper);
+
+        expect(getInnerHTML(wrapper.find('.text-center').first())).toEqual('Password Reset');
+    })
+
+
+
 })

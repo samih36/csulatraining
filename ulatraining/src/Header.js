@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Header(props) {
     const {header, logOutButton} = useStyles();
-    const [erro, setError] = useState('');
+    const [errorCount, setError] = useState('');
     const [loading, setLoading] = useState(true);
     const [professor, setProfessor] = useState(false);
     const {currentUser, logout} = useAuth();
