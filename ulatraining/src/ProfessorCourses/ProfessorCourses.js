@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
 import './ProfessorCourses.css'
+import "tailwindcss/tailwind.css"
 
 export default function ProfessorCourses(props) {
 
@@ -41,28 +42,11 @@ export default function ProfessorCourses(props) {
                         )
                     }
 
-                    {/*
-                        // TODO make this go to a course-specific professor view
-                        // List of all courses
-                        {Object.keys(courses).map((cid) =>
-                            <div className="course" onClick={event => window.location.href=`/course/${cid}`}>{courses[cid].name}</div>
-                        )}
-                    */}
-
                 </Grid>
-                {/*
-                    <Grid item xs={3}>
-                        <div className="coursesHeader">Progress</div>
-                        {Object.keys(courses).map((cid) => {
-                            return (<div className="course">0%</div>)
-                        })}
-                    </Grid>
-                */}
-                <Grid item xs={2}>
+
+                <Grid item xs={4}>
                     <div className="createClass" onClick={event => window.location.href='create-course'}>create course</div>
                 </Grid>
-
-
             </Grid>
         </Box>
     </div>;

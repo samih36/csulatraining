@@ -42,7 +42,8 @@ export default function CourseDashboard(props) {
             <Grid container spacing={1}>
                 <Grid item xs={7}>
                     <div className="coursesHeader">Students</div>
-
+                    <div className="course">Test Student 1</div>
+                    <div className="course">Seymour Buts</div>
                     {
                         // fill in onclick later
                         Object.keys(users).map((uid) =>
@@ -53,6 +54,8 @@ export default function CourseDashboard(props) {
 
                 <Grid item xs={3}>
                     <div className="coursesHeader">Progress</div>
+                    <div classsName="course">100</div>
+                    <div classsName="course">-100</div>
                     {
                         Object.keys(users).map((uid) =>
                             <div className="course">

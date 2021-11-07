@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from "../contexts/AuthContext";
-import './ProfessorCourses.css'
+import 'tailwindcss/tailwind.css'
 
 export default function CreateCourse(props) {
 
@@ -39,11 +39,11 @@ export default function CreateCourse(props) {
 
     return (<div className="container">
 
-        <div className="createCourseHeader">Create a Course</div>
+        <div className="createCourseHeader mt-24 bg-blue-300 rounded-full mx-44">Create a Course</div>
         <form>
-            <label className="courseTitleLabel">Course Title:</label>
-            <input type="text" name="courseTitle" id="courseTitleInput"></input><br></br>
-            <button className="submitButton" type="button" onClick={event=>handleCreateCourse(document.getElementById("courseTitleInput").value)}>Submit</button>
+            <label className="courseTitleLabel ">Course Title:</label>
+            <input className="outline-black bg-gray-400 my-4" type="text" name="courseTitle" id="courseTitleInput"></input><br></br>
+            <button className="submitButton bg-gray-400" type="button" onClick={event=>handleCreateCourse(document.getElementById("courseTitleInput").value)}>Submit</button>
         </form>
 
     </div>);
