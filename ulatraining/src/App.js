@@ -33,7 +33,7 @@ class App extends Component {
       <div className="App">
         <AuthProvider>
           <Router>
-          <Route path={["/"]} render={ ( props ) => ( props.location.pathname !== "/" && props.location.pathname !== "/login" && props.location.pathname !== "/login/professor" && props.location.pathname !== "/login/student" && props.location.pathname !== "/signup/student" && props.location.pathname !== "signup/professor" ) && <Header database ={database} /> } />
+          <Route path={["/"]} render={ ( props ) => ( props.location.pathname !== "/" && props.location.pathname !== "/login" && props.location.pathname !== "/login/professor" && props.location.pathname !== "/login/student" && props.location.pathname !== "/signup/student" && props.location.pathname !== "/signup/professor" ) && <Header database ={database} /> } />
             <Switch>
               <Route exact path="/" component={Welcome} />
               <Route exact path = "/signup/:role?" component={(props) => <Signup database={database} />} />

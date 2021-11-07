@@ -56,7 +56,7 @@ export default function Login() {
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Button href={`/signup/${role}`}>Sign Up</Button>
+                Need an account? <Button className="signupButton" href={`/signup/${role}`}>Sign Up</Button>
             </div>
             </div>
         </Container>
