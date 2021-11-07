@@ -52,7 +52,7 @@ class App extends Component {
               <PrivateRoute exact path="/course/:cid" component={(props) => <StudentCourseView database={database}/>} database={database} role={'student'} />
               <PrivateRoute exact path="/course/:cid/:mid" component={(props) => <Module database={database}/>} database={database}  role={'student'}/>
               {/* hard coded class above for now, will change later*/}
-              {/* <PrivateRoute exact path="/dev" component={(props) => <DevFeatureSelector {...props} database={database} />} /> */}
+
               <PrivateRoute exact path="/hello" component={(props) => <Hello {...props} database={database} />} database={database} role={'student'}/>
             </Switch>
           </Router>
