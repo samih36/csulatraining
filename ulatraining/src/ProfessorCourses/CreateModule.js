@@ -38,9 +38,9 @@ export default function CreateModule(props) {
 
         <div className="createModuleHeader">Create a Module</div>
         <form>
-            <label for="moduleTitle"> Module Title:</label>
+            <label> Module Title:</label>
             <input type="text" name="moduleTitle" id="moduleTitleInput"></input><br></br>
-            <label for="moduleContent"> Module Content</label>
+            <label> Module Content</label>
             <textarea rows="4" cols="50" name="moduleContent" id="moduleContentInput"></textarea><br></br>
             <button type="button" onClick={event=>handleCreateModule(document.getElementById("moduleTitleInput").value, document.getElementById("moduleContentInput").value)}>Submit</button>
         </form>

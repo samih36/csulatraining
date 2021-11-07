@@ -35,34 +35,19 @@ describe("CreateCourse creates a course", () => {
                 uid: "dfhsakjfkladjfl"
             }
         }
-        let key;
+        jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => user);
         let fakeDatabase = testing.database();
-        const wrapper = mount(<CreateCourse database={fakeDatabase}/>)
 
-        jest.spyOn(wrapper, 'handleCreateCourse').mockImplementation(() => {
-            let newCoursePush = fakeDatabase.ref('courses').push();
-            newCoursePush.set({
-                'name': "hello",
-                'professor': "dfhsakjfkladjfl"
-            })
-            database.ref(`users/dfhsakjfkladjfl/courses/${newCoursePush.key}`).set({
-                'name': "hello",
-                'professor': "dfhsakjfkladjfl"
-            })
-            key = newCoursePush.key
-        });
+        let wrapper = mount(<CreateCourse database={fakeDatabase} />)
 
+        let input = wrapper.find('#courseTitleInput')
 
-        wrapper.find('submitButton').simulate('click')
-        fakeDatabase.ref(`users/dfhsakjfkladjfl/courses/${key}`).once('value', snapshot =>{
-            let module = snapshot.val()
-        })
+        input.instance().value = "hello"
 
+        expect(wrapper.find('#courseTitleInput').instance().value).toEqual("hello")
 
-        expect(module).toEqual({ 'name': "hello",
-        'professor': "dfhsakjfkladjfl"})
+        wrapper.find('.submitButton').simulate('click')
 
 
     })
-
- */
+*/

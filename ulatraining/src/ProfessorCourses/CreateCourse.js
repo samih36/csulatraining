@@ -41,7 +41,7 @@ export default function CreateCourse(props) {
 
         <div className="createCourseHeader">Create a Course</div>
         <form>
-            <label className="courseTitleLabel" for="courseTitle">Course Title:</label>
+            <label className="courseTitleLabel">Course Title:</label>
             <input type="text" name="courseTitle" id="courseTitleInput"></input><br></br>
             <button className="submitButton" type="button" onClick={event=>handleCreateCourse(document.getElementById("courseTitleInput").value)}>Submit</button>
         </form>
