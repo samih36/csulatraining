@@ -32,7 +32,7 @@ export default function ProfessorCourses(props) {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={1}>
                 <Grid item xs={7}>
-                    <div className="coursesHeader">Courses</div>
+                    <div className="coursesHeader">courses</div>
 
                     {
                         // Will need to add /course-admin/:cid route
