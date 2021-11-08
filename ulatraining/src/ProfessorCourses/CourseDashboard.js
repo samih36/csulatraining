@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
-import './ProfessorCourses.css';
+import '../MyCourses/MyCourses.css';
 import { useParams } from 'react-router-dom';
 
 export default function CourseDashboard(props) {
@@ -54,8 +54,8 @@ export default function CourseDashboard(props) {
 
                 <Grid item xs={3}>
                     <div className="coursesHeader">Progress</div>
-                    <div classsName="course">100</div>
-                    <div classsName="course">-100</div>
+                    <div className="course">100</div>
+                    <div className="course">-100</div>
                     {
                         Object.keys(users).map((uid) =>
                             <div className="course">
