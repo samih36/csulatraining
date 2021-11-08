@@ -36,6 +36,15 @@
     margin-bottom: 10px;
 }
 
+.completedCourse {
+    background-color: #26d316;
+    width: 95%;
+    border-radius: 10px;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
 .addClass {
     background-color: #4B9CD3;
     width: 95%;
