@@ -54,8 +54,8 @@ export default function CourseDashboard(props) {
 
                 <Grid item xs={3}>
                     <div className="coursesHeader">Progress</div>
-                    <div className="course">100</div>
-                    <div className="course">-100</div>
+                    <div className="completedCourse">100</div>
+                    <div className="course">0</div>
                     {
                         Object.keys(users).map((uid) =>
                             <div className="course">
