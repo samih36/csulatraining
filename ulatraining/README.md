@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# CS ULA Training App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app exists to provide a way to virtually provide training to undergraduate learning assistants within the computer science department through a variety of learning modules and quizzes. Students will be able to add courses, complete modules and take quizzes in order to learn and display the necessary information. Professors can create courses and for their ULAs and track student progress. 
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project uses npm for it's package management. To install the dependencies for this project, be sure to run  ```npm install``` from the ulatraining folder (if in the root folder, run ```cd ulatraining```)
 
-### `yarn build`
+### Running Locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Once everything is installed, you can start a local server my running  ```npm start```
+from the ulatraining folder. This should open the homepage in your local browser at [localhost:3000](localhost:3000)
+,
+### Warranty
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+These instructions were last tested and verified to work on 11/12/2021 by Sami on a mac.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## Testing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Users can run the entire test suite by running ```npm test```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run the test suite and view a coverage report of all files, run ```npm test -- --coverage --watchAll```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run a specific test file, run ```npm test filename```, including a test coverage with ```npm test filename -- --coverage --watchAll```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+There is a also a testing firebase database for various usage so as to not manipulate the real data. The testing firebase project can be found at [https://console.firebase.google.com/project/csula--testing/overview](https://console.firebase.google.com/project/csula--testing/overview) (must be invited first)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This app is deployed using firebase hosting, which is convinient given that all of our data and authentication currently lives in firebase. The firebase console for this project can be found at [https://console.firebase.google.com/project/csula-8296c/overview](https://console.firebase.google.com/project/csula-8296c/overview) (must be invited to the project first)
 
-### Code Splitting
+once invited, if you want to deploy the code currently on the main branch of the project:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+to use any of the firebase commands, you must first sign in using `firebase login`, which will take you to a web page that will prompt you to sign in with your google account. Use the account that is associated with the project. 
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+once logged in, run `npm run build`
 
-### Making a Progressive Web App
+then `firebase deploy`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+if `firebase deploy` does not work, or you want to change some part of the configuration of the deployment, you can run `firebase init` which will prompt you with various options for your deployment.
 
-### Advanced Configuration
+There currently is no CI/CD enabled, so run the above commands whenever you are ready to push to production. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Technologies used
 
-### Deployment
+The front end for this project is built using React, and all of our data and authentication is handled by Firebase, specifically their Realtime database for our database. The rendered content of our site is fully dependent on the state of the database at a given time. The ADRs for this project are located inside the `ulatraining` folder in a file called `ADR.md`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contributing
 
-### `yarn build` fails to minify
+To contribute to this project, a new developer would need access to this github repository as well as access to both the [firebase project](https://console.firebase.google.com/project/csula-8296c/overview) and the [firebase testing project](https://console.firebase.google.com/project/csula--testing/overview)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+There aren't any particularly specific style or process conventions used that a new developer would need to adhere to. See the current testing suite using Jest and Enzyme for an idea of how we are testing this application.
+
+Our project website, which contains more background information about the project and a view of our progress over the course of the semester, can be found at [https://tarheels.live/csulatraining/](https://tarheels.live/csulatraining/)
+
+
+## Authors
+
+The major authors of this project have been Sami Habib, Devin Lynch, Nicholas Nguyen, and Alex Yalcin, who created this project for their COMP523 Class. 
+
+
+## License
+
+The source code for this project is licenced with the open-source MIT license.
+
+## Acknowledgements
+
+We would like to thank and acknowledge Jacob Yackenovich for his time and valuable mentorship to us this semester, Professor Terrell for his intruction and support, and Professor Joseph-Nicolas for her feedback and direction over the course of the development for this application. 
