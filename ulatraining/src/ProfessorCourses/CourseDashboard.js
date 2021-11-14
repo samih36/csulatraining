@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
-import '../MyCourses/MyCourses.css';
+import './ProfessorCourses.css'
 import { useParams } from 'react-router-dom';
+import "tailwindcss/tailwind.css"
 
 export default function CourseDashboard(props) {
 
@@ -18,30 +19,44 @@ export default function CourseDashboard(props) {
         database.ref('users').orderByChild('role').equalTo('student').once('value').then(snapshot => {
             if (snapshot.exists())  // yes, it will exist
             {
-                console.log("snapshot exists");
+                //console.log("snapshot exists");
                 let _users = { };
                 const val = snapshot.val();
                 for (const uid in val)
                 {
-                    console.log(`student ${uid} exists`);
+                    //console.log(`student ${uid} exists`);
                     // Add the user to the users object
                     if (val[uid].courses && val[uid].courses[cid])
                     {
-                        console.log(`student ${uid} is in the class`);
+                        //console.log(`student ${uid} is in the class`);
                         _users[uid] = val[uid];
                     }
                 }
-                console.log(_users);
+                //console.log(_users);
                 setUsers(_users);
             }
         });
     }, []);
 
+    const handleDeleteCourse = (cid) => {
+        console.log(cid)
+        let courseRef = database.ref(`courses/${cid}`)
+        courseRef.remove().then(function() {
+            window.alert("Course Removed")
+            window.location.href=`/professor-courses`
+        }).catch(function(error) {
+            console.log("Remove failed: " + error.message)
+        });
+        let userCourseRef = database.ref(`users/${currentUser.uid}/${cid}`)
+
+    }
     return <div className="container">
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={1}>
                 <Grid item xs={7}>
                     <div className="coursesHeader">Students</div>
+                    <div className="course">Test Student 1</div>
+                    <div className="course">Seymour Buts</div>
                     {
                         // fill in onclick later
                         Object.keys(users).map((uid) =>
@@ -50,36 +65,39 @@ export default function CourseDashboard(props) {
                     }
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <div className="coursesHeader">Progress</div>
+                    <div className="completedCourse">100</div>
+                    <div className="course">0</div>
                     {
-                        Object.keys(users).map((uid) => {
-                            let percentage = Math.round(Object.values(users[uid].courses[cid].modules).reduce((prev, next) => prev + next) / Object.keys(users[uid].courses[cid].modules).length);
-                            return percentage === 100 ? 
-                            <div className="completedCourse">
-                            {
-                                Math.round(Object.values(users[uid].courses[cid].modules).reduce((prev, next) => prev + next) / Object.keys(users[uid].courses[cid].modules).length) + "%"
-                            }
-                            </div> :
+                        Object.keys(users).map((uid) =>
                             <div className="course">
-                            {
-                                Math.round(Object.values(users[uid].courses[cid].modules).reduce((prev, next) => prev + next) / Object.keys(users[uid].courses[cid].modules).length) + "%"
-                            }
+                                {
+                                    Math.round(Object.values(users[uid].courses[cid].modules).reduce((prev, next) => prev + next) / Object.keys(users[uid].courses[cid].modules).length) + "%"
+                                }
                             </div>
-                        }
                         )
                     }
                 </Grid>
 
-                {/*
-                    <Grid item xs={3}>
-                        <div className="coursesHeader">Progress</div>
-                        {Object.keys(courses).map((cid) => {
-                            return (<div className="course">0%</div>)
-                        })}
-                    </Grid>
-                */}
+                <Grid item xs={2}>
+                    <div className="editClass" onClick={event => window.location.href=`/course-admin/edit-course/${cid}`}>edit course</div>
+                    <div className="deleteClass">
+                        <button
+                        className="deleteButton"
+                        onClick={() => {
+                            const confirmBox = window.confirm(
+                                "Do you really want to delete this Crumb?"
+                            )
+                            if (confirmBox === true) {
+                                handleDeleteCourse(cid)
+                            }
+                        }}>delete course
+                        </button>
+                    </div>
+                </Grid>
             </Grid>
         </Box>
     </div>;
 }
+
