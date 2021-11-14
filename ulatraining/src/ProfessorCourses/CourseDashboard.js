@@ -69,8 +69,8 @@ export default function CourseDashboard(props) {
                 </Grid>
 
                 <Grid item xs={2}>
-                    <div className="editClass" onClick={event => window.location.href='edit-course'}>edit course</div>
-                    <div className="deleteClass" onClick={event => window.location.href='delete-course'}>delete course</div>
+                    <div className="editClass" onClick={event => window.location.href=`/course-admin/edit-course/${cid}`}>edit course</div>
+                    <div className="deleteClass" onClick={event => window.location.href=`/course-admin/delete-course/${cid}`}>delete course</div>
                 </Grid>
             </Grid>
         </Box>
