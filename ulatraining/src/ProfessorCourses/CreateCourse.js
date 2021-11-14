@@ -35,6 +35,7 @@ export default function CreateCourse(props) {
             'name': courseName,
             'professor': currentUser.uid
         })
+        window.location.href=`/professor-courses`
     };
 
     return (<div className="container">

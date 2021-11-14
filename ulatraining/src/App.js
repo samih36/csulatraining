@@ -21,7 +21,6 @@ import CourseDashboard from './ProfessorCourses/CourseDashboard';
 import CreateCourse from './ProfessorCourses/CreateCourse';
 import CreateModule from './ProfessorCourses/CreateModule';
 import EditCourse from './ProfessorCourses/EditCourse';
-import DeleteCourse from './ProfessorCourses/DeleteCourse';
 import Module from './Module.js'
 import QuizCreationForm from './Quiz/QuizCreationForm';
 
@@ -50,7 +49,6 @@ class App extends Component {
               <PrivateRoute exact path ="/create-module/:cid" component={(props) => <CreateModule database={database} />} database={database} role={'professor'} />
               <PrivateRoute exact path ="/create-quiz/:cid" component={(props) => <QuizCreationForm {...props} database={database} />} database={database} role={'professor'}/>
               <PrivateRoute exact path ="/course-admin/edit-course/:cid" component={(props) => <EditCourse database={database} />} database={database} role={'professor'}/>
-              <PrivateRoute exact path ="/course-admin/delete-course/:cid" component={(props) => <DeleteCourse database={database}/>} database={database} role={'professor'}/>
 
               {
                 //<PrivateRoute exact path ="/course/:cid/quiz/:mid" component={(props) => <QuizComponent {...props} database={database} />} />

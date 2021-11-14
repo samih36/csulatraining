@@ -19,25 +19,37 @@ export default function CourseDashboard(props) {
         database.ref('users').orderByChild('role').equalTo('student').once('value').then(snapshot => {
             if (snapshot.exists())  // yes, it will exist
             {
-                console.log("snapshot exists");
+                //console.log("snapshot exists");
                 let _users = { };
                 const val = snapshot.val();
                 for (const uid in val)
                 {
-                    console.log(`student ${uid} exists`);
+                    //console.log(`student ${uid} exists`);
                     // Add the user to the users object
                     if (val[uid].courses && val[uid].courses[cid])
                     {
-                        console.log(`student ${uid} is in the class`);
+                        //console.log(`student ${uid} is in the class`);
                         _users[uid] = val[uid];
                     }
                 }
-                console.log(_users);
+                //console.log(_users);
                 setUsers(_users);
             }
         });
     }, []);
 
+    const handleDeleteCourse = (cid) => {
+        console.log(cid)
+        let courseRef = database.ref(`courses/${cid}`)
+        courseRef.remove().then(function() {
+            window.alert("Course Removed")
+            window.location.href=`/professor-courses`
+        }).catch(function(error) {
+            console.log("Remove failed: " + error.message)
+        });
+        let userCourseRef = database.ref(`users/${currentUser.uid}/${cid}`)
+
+    }
     return <div className="container">
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={1}>
@@ -70,7 +82,19 @@ export default function CourseDashboard(props) {
 
                 <Grid item xs={2}>
                     <div className="editClass" onClick={event => window.location.href=`/course-admin/edit-course/${cid}`}>edit course</div>
-                    <div className="deleteClass" onClick={event => window.location.href=`/course-admin/delete-course/${cid}`}>delete course</div>
+                    <div className="deleteClass">
+                        <button
+                        className="deleteButton"
+                        onClick={() => {
+                            const confirmBox = window.confirm(
+                                "Do you really want to delete this Crumb?"
+                            )
+                            if (confirmBox === true) {
+                                handleDeleteCourse(cid)
+                            }
+                        }}>delete course
+                        </button>
+                    </div>
                 </Grid>
             </Grid>
         </Box>
