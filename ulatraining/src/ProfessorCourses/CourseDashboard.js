@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
-import '../MyCourses/MyCourses.css';
+import './ProfessorCourses.css'
 import { useParams } from 'react-router-dom';
+import "tailwindcss/tailwind.css"
 
 export default function CourseDashboard(props) {
 
@@ -42,6 +43,8 @@ export default function CourseDashboard(props) {
             <Grid container spacing={1}>
                 <Grid item xs={7}>
                     <div className="coursesHeader">Students</div>
+                    <div className="course">Test Student 1</div>
+                    <div className="course">Seymour Buts</div>
                     {
                         // fill in onclick later
                         Object.keys(users).map((uid) =>
@@ -50,36 +53,27 @@ export default function CourseDashboard(props) {
                     }
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <div className="coursesHeader">Progress</div>
+                    <div className="completedCourse">100</div>
+                    <div className="course">0</div>
                     {
-                        Object.keys(users).map((uid) => {
-                            let percentage = Math.round(Object.values(users[uid].courses[cid].modules).reduce((prev, next) => prev + next) / Object.keys(users[uid].courses[cid].modules).length);
-                            return percentage === 100 ? 
-                            <div className="completedCourse">
-                            {
-                                Math.round(Object.values(users[uid].courses[cid].modules).reduce((prev, next) => prev + next) / Object.keys(users[uid].courses[cid].modules).length) + "%"
-                            }
-                            </div> :
+                        Object.keys(users).map((uid) =>
                             <div className="course">
-                            {
-                                Math.round(Object.values(users[uid].courses[cid].modules).reduce((prev, next) => prev + next) / Object.keys(users[uid].courses[cid].modules).length) + "%"
-                            }
+                                {
+                                    Math.round(Object.values(users[uid].courses[cid].modules).reduce((prev, next) => prev + next) / Object.keys(users[uid].courses[cid].modules).length) + "%"
+                                }
                             </div>
-                        }
                         )
                     }
                 </Grid>
 
-                {/*
-                    <Grid item xs={3}>
-                        <div className="coursesHeader">Progress</div>
-                        {Object.keys(courses).map((cid) => {
-                            return (<div className="course">0%</div>)
-                        })}
-                    </Grid>
-                */}
+                <Grid item xs={2}>
+                    <div className="editClass" onClick={event => window.location.href='edit-course'}>edit course</div>
+                    <div className="deleteClass" onClick={event => window.location.href='delete-course'}>delete course</div>
+                </Grid>
             </Grid>
         </Box>
     </div>;
 }
+

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
-import '../MyCourses/MyCourses.css'
+import './ProfessorCourses.css'
 import "tailwindcss/tailwind.css"
 
 export default function ProfessorCourses(props) {
@@ -19,14 +19,6 @@ export default function ProfessorCourses(props) {
                 setCourses(snapshot.val());
         });
 
-        // semi-old code that takes course directly from a professor's child courses
-        // instead of checking that they own it
-        /*
-        database.ref('users').child(currentUser.uid).child('courses').on('value', snapshot => {
-            if (snapshot.exists())
-                setCourses(snapshot.val());
-        });
-        */
     }, []);
 
     return <div className="container">
