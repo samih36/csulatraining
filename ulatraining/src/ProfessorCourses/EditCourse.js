@@ -13,7 +13,7 @@ export default function EditCourse(props) {
     let cid = useParams().cid
 
     useEffect(() => {
-
+        
 
 
     }, []);
