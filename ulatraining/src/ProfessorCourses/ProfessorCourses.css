@@ -78,3 +78,25 @@
     font-size: 21px;
     font-weight: 500;
 }
+
+.modulesHeader {
+    background-color: #4B9CD3;
+    width: 95%;
+    border-radius: 10px;
+    padding: 2px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.deleteModule {
+    background-color: #4B9CD3;
+    width: 95%;
+    border-radius: 10px;
+    padding: 4px;
+    margin-top: 40px;
+    margin-bottom: 5px;
+    font-size: 21px;
+    font-weight: 500;
+}

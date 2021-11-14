@@ -31,6 +31,7 @@ export default function CreateModule(props) {
             content: moduleContent,
             type: "text",
         })
+        window.location.href=`/course-admin/${courseID}`
 
     };
 
@@ -38,11 +39,11 @@ export default function CreateModule(props) {
 
         <div className="createModuleHeader">Create a Module</div>
         <form>
-            <label> Module Title:</label>
-            <input type="text" name="moduleTitle" id="moduleTitleInput"></input><br></br>
+            <label className="p-2 rounded bg-blue-300"> Module Title:</label>
+            <input className="bg-gray-300 border-black" type="text" name="moduleTitle" id="moduleTitleInput"></input><br></br>
             <label> Module Content</label>
-            <textarea rows="4" cols="50" name="moduleContent" id="moduleContentInput"></textarea><br></br>
-            <button type="button" onClick={event=>handleCreateModule(document.getElementById("moduleTitleInput").value, document.getElementById("moduleContentInput").value)}>Submit</button>
+            <textarea className="bg-gray-300 border-black" rows="4" cols="50" name="moduleContent" id="moduleContentInput"></textarea><br></br>
+            <button className="p-2 rounded bg-gray-400" type="button" onClick={event=>handleCreateModule(document.getElementById("moduleTitleInput").value, document.getElementById("moduleContentInput").value)}>Submit</button>
         </form>
 
     </div>);

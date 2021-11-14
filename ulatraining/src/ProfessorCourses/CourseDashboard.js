@@ -12,6 +12,7 @@ export default function CourseDashboard(props) {
     const database = props.database;
     let cid = useParams().cid;
 
+    const [modules, setModules] = useState(false);
     const [users, setUsers] = useState({});
 
     useEffect(() => {
@@ -19,27 +20,31 @@ export default function CourseDashboard(props) {
         database.ref('users').orderByChild('role').equalTo('student').once('value').then(snapshot => {
             if (snapshot.exists())  // yes, it will exist
             {
-                //console.log("snapshot exists");
                 let _users = { };
                 const val = snapshot.val();
                 for (const uid in val)
                 {
-                    //console.log(`student ${uid} exists`);
                     // Add the user to the users object
                     if (val[uid].courses && val[uid].courses[cid])
                     {
-                        //console.log(`student ${uid} is in the class`);
                         _users[uid] = val[uid];
                     }
                 }
-                //console.log(_users);
                 setUsers(_users);
             }
         });
+
+        database.ref(`courses/${cid}/modules`).once('value').then(snapshot => {
+            if (snapshot.exists()) {
+                let modules = snapshot.val()
+                setModules(modules);
+            } else {
+                console.log(`Course ${cid} has no modules`)
+            }
+        })
     }, []);
 
     const handleDeleteCourse = (cid) => {
-        console.log(cid)
         let courseRef = database.ref(`courses/${cid}`)
         courseRef.remove().then(function() {
             window.alert("Course Removed")
@@ -87,7 +92,7 @@ export default function CourseDashboard(props) {
                         className="deleteButton"
                         onClick={() => {
                             const confirmBox = window.confirm(
-                                "Do you really want to delete this Crumb?"
+                                "Do you really want to delete this course?"
                             )
                             if (confirmBox === true) {
                                 handleDeleteCourse(cid)
@@ -96,6 +101,22 @@ export default function CourseDashboard(props) {
                         </button>
                     </div>
                 </Grid>
+
+                <Grid item xs={7}>
+                    <div className="modulesHeader">Modules</div>
+                    {
+                        Object.keys(modules).map(mid => {
+                            return <div className='course' key={mid}>{modules[mid].name}</div>
+                        })
+                    }
+                </Grid>
+                <Grid item xs={2}>
+                    <div className="deleteModule" onClick={event => window.location.href=`/course-admin/create-module/${cid}`}>create module</div>
+                </Grid>
+                <Grid item xs={2}>
+                    <div className="deleteModule" onClick={event => window.location.href=`/course-admin/delete-module/${cid}`}>delete modules</div>
+                </Grid>
+
             </Grid>
         </Box>
     </div>;
