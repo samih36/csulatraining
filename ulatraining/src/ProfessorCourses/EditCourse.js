@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import { useAuth } from "../contexts/AuthContext";
 import './ProfessorCourses.css'
 import { useParams } from 'react-router-dom';
 import "tailwindcss/tailwind.css"
+import EditableText from '../ReusableUtilities/EditableText';
+
 
 export default function EditCourse(props) {
 
     const { currentUser } = useAuth();
     const database = props.database;
-    let cid = useParams().cid
-
-    useEffect(() => {
-        
+    let cid = useParams().cid;
 
 
-    }, []);
-
-    return <div>hi</div>
+    return <div className="course-view">
+        {EditableText(props, 'courses/' + cid + '/' + 'name', "course-title")}
+    </div>;
 }

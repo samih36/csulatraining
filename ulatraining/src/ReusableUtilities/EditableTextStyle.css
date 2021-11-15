@@ -1,0 +1,24 @@
+.editable-text {
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.editable-text-editing {
+    border:0px;
+    margin: 0px;
+    padding:0px;
+    text-align:center;
+    width: auto;
+    outline:none;
+    
+    border-radius: 10pt;
+    box-shadow: 0 0 0 1px #adc7c7;
+    transition: .2s;
+}
+
+.editable-text-editing:focus {
+    box-shadow: 0 0 0 2px #73bfbf;
+    transition: .2s;
+}
