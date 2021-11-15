@@ -114,10 +114,13 @@ export default function CourseDashboard(props) {
                         })
                     }
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={1.5}>
                     <div className="deleteModule" onClick={event => window.location.href=`/course-admin/create-module/${cid}`}>create module</div>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={1.5}>
+                    <div className="deleteModule" onClick={event => window.location.href=`/create-quiz/${cid}`}>create quiz</div>
+                </Grid>
+                <Grid item xs={1.5}>
                     <div className="deleteModule" onClick={event => window.location.href=`/course-admin/delete-module/${cid}`}>delete modules</div>
                 </Grid>
 

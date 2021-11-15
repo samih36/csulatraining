@@ -40,6 +40,21 @@ export default function DeleteModule(props) {
         if (checkedModules.length != 0) {
             checkedModules.forEach(mid => {
                 let moduleRef = database.ref(`courses/${cid}/modules/${mid}`)
+
+                database.ref('users').orderByChild('role').equalTo('student').once('value', snapshot => {
+                    if (snapshot.exists()) {
+                        const val = snapshot.val();
+                        for (const uid in val) {
+                            if (val[uid].courses && val[uid].courses[cid]) {
+                                let userModules = val[uid]['courses'][cid]['modules'];
+                                delete userModules[mid];
+                                console.log(userModules)
+                                database.ref('users').child(uid).child('courses').child(cid).child('modules').set(userModules);
+                            }
+                        }
+                    }
+                })
+
                 moduleRef.remove().then(function() {
                     //Minor bug, modules removed alert pops up twice
                     window.alert("Modules Removed")

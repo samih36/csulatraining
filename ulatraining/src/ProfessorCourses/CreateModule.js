@@ -31,6 +31,16 @@ export default function CreateModule(props) {
             content: moduleContent,
             type: "text",
         })
+        database.ref('users').orderByChild('role').equalTo('student').once('value', snapshot => {
+            if (snapshot.exists()) {
+                const val = snapshot.val();
+                for (const uid in val) {
+                    if (val[uid].courses && val[uid].courses[courseID]) {
+                        database.ref('users').child(uid).child('courses').child(courseID).child('modules').child(newModulePush.key).set(0);
+                    }
+                }
+            }
+        })
         window.location.href=`/course-admin/${courseID}`
 
     };
