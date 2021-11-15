@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from "../contexts/AuthContext";
 import { useParams } from 'react-router-dom';
 import './EditableTextStyle.css';
+import  TextareaAutosize  from 'react-textarea-autosize';
 
-
-export default function EditableText(props, path, cName = "container", fontSize = 64, maxLen = 15) {
+export default function EditableText(props, path, cName = "container", fontSize = 64, maxLen = 15, width = 15) {
     const {currentUser} = useAuth();
     const database = props.database;
     let cid = useParams().cid;
@@ -42,7 +42,7 @@ export default function EditableText(props, path, cName = "container", fontSize 
 
     const textEditing = () => {
         
-        return <input className = "editable-text-editing" style = {style} maxLength = {maxLen} onKeyDown = {keyDown} value = {text} onChange = {textChanged}></input>
+        return <TextareaAutosize cols={width} className = "editable-text-editing" style = {style} maxLength = {maxLen} onKeyDown = {keyDown} value = {text} onChange = {textChanged}></TextareaAutosize>
     }
 
     return <div className = {cName}>
