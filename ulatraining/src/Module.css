@@ -1,0 +1,44 @@
+.backButton {
+    float: left;
+    margin-left: 100px;
+    margin-top: 30px;
+    font-family: "Andale Mono", AndaleMono, monospace;
+    background-color: #4B9CD3 !important;
+    border: 1px solid #4B9CD3 !important;
+    position: relative;
+}
+
+.advanceButton {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    background-color: #4B9CD3 !important;
+    border: 1px solid #4B9CD3 !important;
+}
+
+.moduleName {
+    font-size: 36px;
+}
+
+.quizName {
+    width: 50%;
+}
+
+
+.moduleContent {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.contentContainer {
+    margin-left: -150px;
+    text-align: center;
+    font-family: "Andale Mono", AndaleMono, monospace;
+    font-weight: bolder;
+    margin-top: 50px;
+    display: inline-block;
+}
+
+.quiz {
+    margin-top: 25px;
+    font-family: "Andale Mono", AndaleMono, monospace;
+}

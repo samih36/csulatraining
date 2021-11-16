@@ -1,5 +1,7 @@
 import { alertTitleClasses, touchRippleClasses } from '@mui/material';
+import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
 import React from 'react';
+import '../Module.css'
 
 import { useAuth } from "../contexts/AuthContext";
 import generateQuestion from './QuestionComponent';
@@ -61,6 +63,17 @@ class QuizCreationForm extends React.Component
         let modulesdb = this.database.ref("courses/" + this.courseid + '/modules');
         let quizNode = modulesdb.child(this.state.mod);
         quizNode.update(this.state.values).then(response => {window.location.href=`/course/${this.courseid}`});
+        
+        this.database.ref('users').orderByChild('role').equalTo('student').once('value', snapshot => {
+            if (snapshot.exists()) {
+                const val = snapshot.val();
+                for (const uid in val) {
+                    if (val[uid].courses && val[uid].courses[this.courseid]) {
+                        this.database.ref('users').child(uid).child('courses').child(this.courseid).child('modules').child(this.state.mod).set(0);
+                    }
+                }
+            }
+        })
     }
 
     formChange(event) {
@@ -198,12 +211,12 @@ class QuizCreationForm extends React.Component
     render() {
         let open_question = <div className="nested-form">
         <label for="q-itself">Question:</label>
-        <textarea id="q-itself" rows="2" cols="80" value={this.state.q_text} onChange={(event) =>{
-            this.setState({q_text: event.target.value});}}></textarea>
-        <div><p>{String.fromCharCode(65 + 0)})</p> <input id ="q_a1" type="text" value={this.state.q_a1} onChange = {(e) => {this.setState({q_a1: e.target.value});}}/></div>
-        <div><p>{String.fromCharCode(65 + 1)})</p> <input value={this.state.q_a2} onChange = {e => this.setState({q_a2: e.target.value})}/></div>
-        <div><p>{String.fromCharCode(65 + 2)})</p> <input value={this.state.q_a3} onChange = {e => this.setState({q_a3: e.target.value})}/></div>
-        <div><p>{String.fromCharCode(65 + 3)})</p> <input value={this.state.q_a4} onChange = {e => this.setState({q_a4: e.target.value})}/></div>
+        <Form.Control className="w-50 m-auto" as='textarea' id="q-itself" rows="2" cols="80" value={this.state.q_text} onChange={(event) =>{
+            this.setState({q_text: event.target.value});}}></Form.Control>
+        <div><p>{String.fromCharCode(65 + 0)})</p> <Form.Control className="w-50 m-auto" id ="q_a1" type="text" value={this.state.q_a1} onChange = {(e) => {this.setState({q_a1: e.target.value});}}/></div>
+        <div><p>{String.fromCharCode(65 + 1)})</p> <Form.Control className="w-50 m-auto" value={this.state.q_a2} onChange = {e => this.setState({q_a2: e.target.value})}></Form.Control></div>
+        <div><p>{String.fromCharCode(65 + 2)})</p> <Form.Control className="w-50 m-auto" value={this.state.q_a3} onChange = {e => this.setState({q_a3: e.target.value})}></Form.Control></div>
+        <div><p>{String.fromCharCode(65 + 3)})</p> <Form.Control className="w-50 m-auto" value={this.state.q_a4} onChange = {e => this.setState({q_a4: e.target.value})}></Form.Control></div>
         <span>Correct choice: </span>
         <select id='correct-choice' value={this.state.q_correct_choice} onChange = {(e) => this.setState({q_correct_choice: e.target.value})}>
                             <option value="A">A</option>
@@ -211,20 +224,20 @@ class QuizCreationForm extends React.Component
                             <option value="C">C</option>
                             <option value="D">D</option>
                         </select><br/>
-        <button type="button" onClick={this.createQuestion}>Create Question!</button>
+        <Button className="advanceButton" type="button" onClick={this.createQuestion}>Create Question!</Button>
 
 
     </div>;
 
-        return <div>
+        return <div className="quiz">
             <br/>
             <h1>Quiz Creator</h1>
-            <form onSubmit={this.submitForm}>
+            <Form onSubmit={this.submitForm}>
                 <label for="moduleName">{"Quiz Name: "}</label>
-                <input type="text" maxLength="20" id="name" value={this.state.values.name} onChange={this.formChange}></input><br/>
+                <Form.Control className="w-25 m-auto" type="text" maxLength="50" id="name" value={this.state.values.name} onChange={this.formChange}></Form.Control><br/>
 
                 <label for="introduction">{"Introductory Message: "}</label>
-                <textarea maxLength="1000" id="introduction" value={this.state.values.introduction} rows="5" cols="50" onChange={this.formChange}></textarea><br/>
+                <Form.Control as='textarea' className="w-50 m-auto" maxLength="1000" id="introduction" value={this.state.values.introduction} rows="5" cols="50" onChange={this.formChange}></Form.Control><br/>
 
                 <label for="passPercentage">Minimum Score to Pass: {this.state.values.passPercentage* 100 + "%"}</label>
                 <input type="range" min="0" max="1" id="passPercentage" value={this.state.values.passPercentage} step=".05" onChange={this.formChange}></input><br/>
@@ -237,7 +250,7 @@ class QuizCreationForm extends React.Component
                             <option value="mco">Multiple Choice</option>
                             <option value="sa">Short Answer</option>
                         </select>
-                        <button type="button" onClick={this.newQuestion}>Add</button>
+                        <Button className="advanceButton" onClick={this.newQuestion}>Add</Button>
                     </div>
 
                     <div id = "questions-main">
@@ -247,8 +260,8 @@ class QuizCreationForm extends React.Component
                     </div>
                     </div>
                 </div>
-                <button type="submit">Create Quiz</button>
-            </form>
+                <Button className="advanceButton" type="submit">Create Quiz</Button>
+            </Form>
         </div>;
     }
 
