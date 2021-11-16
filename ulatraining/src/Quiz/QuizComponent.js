@@ -139,7 +139,7 @@ class QuizComponent extends React.Component
     if (!this.state.submitted) {
       return <div className = "quiz">
       <h1 className="courseTitle">{this.course.name}</h1>
-      <h2 className="quizTitle">{"Quiz for module " + this.state.quizData.moduleNum}</h2>
+      <h2 className="quizTitle">{this.state.quizData.name}</h2>
       <hr/>
       <form onSubmit = {this.handleSubmit}>
       <div className="questions">
@@ -160,7 +160,7 @@ class QuizComponent extends React.Component
         </div>;
       }
       return <div className="quiz"><h1>{this.course.name}</h1>
-      <h2>{"Quiz for module " + this.state.quizData.moduleNum} </h2>
+      <h2>{this.state.quizData.name} </h2>
       <hr/>
       <p className="quizScore">{"Score: " + (100 *this.getQuizResult()).toLocaleString(undefined, {maximumFractionDigits: 2}) + "%"}</p>
       {message}

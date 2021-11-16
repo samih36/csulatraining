@@ -38,7 +38,8 @@ class QuizCreationForm extends React.Component
         "introduction": "",
         "shuffleChoices": false,
         "showFeedback": true,
-        "questions": []
+        "questions": [],
+        "type": "quiz"
       }
         }
 
@@ -61,7 +62,7 @@ class QuizCreationForm extends React.Component
     save() {
         alert('Quiz Created!');
         let modulesdb = this.database.ref("courses/" + this.courseid + '/modules');
-        let quizNode = modulesdb.child(this.state.mod);
+        let quizNode = modulesdb.push();
         quizNode.update(this.state.values).then(response => {window.location.href=`/course/${this.courseid}`});
         
         this.database.ref('users').orderByChild('role').equalTo('student').once('value', snapshot => {

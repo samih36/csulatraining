@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from "../contexts/AuthContext";
-import 'tailwindcss/tailwind.css'
+import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
+import '../Module.css'
 
 export default function CreateCourse(props) {
 
@@ -40,12 +41,12 @@ export default function CreateCourse(props) {
 
     return (<div className="container">
 
-        <div className="createCourseHeader mt-24 bg-blue-300 rounded-full mx-44">Create a Course</div>
-        <form>
-            <label className="courseTitleLabel ">Course Title:</label>
-            <input className="outline-black bg-gray-400 my-4" type="text" name="courseTitle" id="courseTitleInput"></input><br></br>
-            <button className="submitButton bg-gray-400" type="button" onClick={event=>handleCreateCourse(document.getElementById("courseTitleInput").value)}>Submit</button>
-        </form>
+        <div className="coursesHeader">Create a Course</div>
+        <Form>
+            <label className="courseTitleLabel">Course Title:</label>
+            <Form.Control className="w-50 m-auto" type="text" name="courseTitle" id="courseTitleInput"></Form.Control><br></br>
+            <Button className="advanceButton" type="button" onClick={event=>handleCreateCourse(document.getElementById("courseTitleInput").value)}>Submit</Button>
+        </Form>
 
     </div>);
 }
