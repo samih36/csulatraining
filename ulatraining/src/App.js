@@ -26,6 +26,7 @@ import QuizCreationForm from './Quiz/QuizCreationForm';
 import DeleteModule from './ProfessorCourses/DeleteModule'
 
 const database = app.database();
+const storage = app.storage();
 
 class App extends Component {
   // constructor(props) {
@@ -47,7 +48,7 @@ class App extends Component {
               <PrivateRoute exact path ="/professor-courses" component={(props) => <ProfessorCourses database={database} />} database={database} role={'professor'} />
               <PrivateRoute exact path ="/course-admin/:cid" component={(props) => <CourseDashboard database={database} />} database={database} role={'professor'} />
               <PrivateRoute exact path ="/create-course" component={(props) => <CreateCourse database={database} />} database={database} role={'professor'} />
-              <PrivateRoute exact path ="/course-admin/create-module/:cid" component={(props) => <CreateModule database={database} />} database={database} role={'professor'} />
+              <PrivateRoute exact path ="/course-admin/create-module/:cid" component={(props) => <CreateModule database={database} storage={storage} />} database={database} role={'professor'} />
               <PrivateRoute exact path ="/create-quiz/:cid" component={(props) => <QuizCreationForm {...props} database={database} />} database={database} role={'professor'}/>
               <PrivateRoute exact path ="/course-admin/edit-course/:cid" component={(props) => <EditCourse database={database} />} database={database} role={'professor'}/>
               <PrivateRoute exact path ="/course-admin/delete-module/:cid" component={(props) => <DeleteModule database={database} />} database={database} role={'professor'} />
