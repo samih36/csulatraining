@@ -21,11 +21,9 @@ describe("CreateCourse creates a course", () => {
         let fakeDatabase = testing.database();
 
         const wrapper = mount(<CreateCourse database={fakeDatabase} />)
-
-        expect(getInnerHTML(wrapper.find('.createCourseHeader').first())).toEqual('Create a Course')
+        expect(getInnerHTML(wrapper.find('.coursesHeader').first())).toEqual('Create a Course')
         expect(getInnerHTML(wrapper.find('.courseTitleLabel').first())).toEqual('Course Title:')
         expect((wrapper.find('#courseTitleInput').first())).toBeTruthy()
-        expect((getInnerHTML(wrapper.find('.submitButton').first()))).toEqual('Submit')
     })
 })
 /*

@@ -107,14 +107,14 @@ describe("correct module renders", () => {
         const wrapper = mount(<Module database={mock} />)
         await wrapInAct(wrapper);
         
-        expect(getInnerHTML(wrapper.find('.quizTitle'))).toEqual('Quiz for module 0')
+        expect(getInnerHTML(wrapper.find('.quizTitle'))).toEqual('finalExam')
         expect(getInnerHTML(wrapper.find('.answerOptionA'))).toEqual('yellow')
         expect(getInnerHTML(wrapper.find('.answerOptionB'))).toEqual('red')
         expect(getInnerHTML(wrapper.find('.answerOptionC'))).toEqual('orange')
         expect(getInnerHTML(wrapper.find('.answerOptionD'))).toEqual('green')
        
         wrapper.find('.answerChoiceInputD').simulate('click');
-        wrapper.find('.submitbutton').simulate('click');
+        wrapper.find('.advanceButton').first().simulate('click');
         
         expect(getInnerHTML(wrapper.find('.quizScore'))).toEqual('Score: 100%');
         expect(getInnerHTML(wrapper.find('.congrats'))).toEqual('Congratulations, you have passed!');
