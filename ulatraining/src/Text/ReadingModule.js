@@ -1,5 +1,7 @@
 import React from 'react';
 import { useAuth } from "../contexts/AuthContext";
+import { Button } from 'react-bootstrap';
+import '../Module.css'
 //import { useParams } from "react-router-dom";
 
 export default function ReadingModule(props)
@@ -22,10 +24,12 @@ export default function ReadingModule(props)
     };
 
     return <div>
-        <input type='button' value='< Back' onClick={event => window.location.href = `/course/${cid}`}/>
-        <h2 className='moduleName'>{_module.name}</h2>
-        <p className='moduleContent'>{_module.content}</p>
+        <Button className='backButton' href={`/course/${cid}`}>Back</Button>
+        <div className="contentContainer">
+            <h2 className='moduleName'>{_module.name}</h2>
+            <p className='moduleContent'>{_module.content}</p>
+        </div>
         <br/>
-        <input type='button' value='Advance' onClick={handleAdvanceClick}/>
+        <Button className='advanceButton' value='Advance' onClick={handleAdvanceClick}>Advance</Button>
     </div>;
 }

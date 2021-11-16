@@ -80,7 +80,7 @@ export default function StudentCourseView(props) {
     if (!loading) {
         return(
             <div>
-                <h1>Modules</h1>
+                <h1 className="modulesTitle">Modules</h1>
                 {
                     Object.keys(modules).map(mid => {
                         return completion[mid] >= (passPercentage[mid] * 100) ? 
@@ -99,7 +99,7 @@ export default function StudentCourseView(props) {
             </div>
         )
     } else {
-        return <h1>Modules</h1>
+        return <h1 className="modulesTitle">Modules</h1>
     }
     
     }

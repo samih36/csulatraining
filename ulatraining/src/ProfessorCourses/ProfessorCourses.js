@@ -37,7 +37,7 @@ export default function ProfessorCourses(props) {
                 </Grid>
 
                 <Grid item xs={4}>
-                    <div className="createClass" onClick={event => window.location.href='create-course'}>create course</div>
+                    <div className="coursesHeader" onClick={event => window.location.href='create-course'}>create course</div>
                 </Grid>
             </Grid>
         </Box>

@@ -1,5 +1,7 @@
 import React from 'react';
 import generateQuestion from "./QuestionComponent.js"
+import { Button } from 'react-bootstrap';
+import '../Module.css'
 import quizData from "./QuizTemplate.json"
 
 class QuizComponent extends React.Component
@@ -145,7 +147,7 @@ class QuizComponent extends React.Component
       </div>
       <hr/>
       <p> {this.state.quizData.introduction} </p>
-      <input className='submitbutton' type="submit" value="Submit" onClick={this.handleSubmit}/>
+      <Button className='advanceButton' type="submit" value="Submit" onClick={this.handleSubmit}>Submit</Button>
       <br/>
       <p className="passingPercentage">Minimum {(100 *this.state.quizData.passPercentage).toLocaleString(undefined, {minimumFractionDigits: 0})}% needed to pass </p>
       </form>
@@ -153,9 +155,11 @@ class QuizComponent extends React.Component
     } else {
       let message = <div><p>Sorry you have failed</p><br/><button type="button" onClick={this.tryAgain}>Try Again</button><button type="button" onClick={() => window.location.href = `/course/${this.course}`}>Return to Course Page</button></div>;
       if (this.getQuizResult() >= this.state.quizData.passPercentage) {
-        message = <div><p className="congrats">Congratulations, you have passed!</p><br/><button type="button" onClick={this.nextModule}>Next Module</button></div>;
+        message = <div><p className="congrats">Congratulations, you have passed!</p><br/>
+        <Button className="advanceButton" onClick={this.nextModule}>Next Module</Button>
+        </div>;
       }
-      return <div><h1>{this.course}</h1>
+      return <div className="quiz"><h1>{this.course.name}</h1>
       <h2>{"Quiz for module " + this.state.quizData.moduleNum} </h2>
       <hr/>
       <p className="quizScore">{"Score: " + (100 *this.getQuizResult()).toLocaleString(undefined, {maximumFractionDigits: 2}) + "%"}</p>
