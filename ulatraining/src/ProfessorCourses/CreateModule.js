@@ -89,7 +89,7 @@ export default function CreateModule(props) {
     return (<div className="container">
         <div className="createModuleHeader">Create a Module</div>
         <form>
-            <select value={this.state.type} onChange={event => setType(event.target.value)}>
+            <select value={type} onChange={event => setType(event.target.value)}>
                 <option value="text">Text</option>
                 <option value="video">Video</option>
             </select><br/>
