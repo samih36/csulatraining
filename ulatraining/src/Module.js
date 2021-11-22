@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from "./contexts/AuthContext";
 import { useParams } from 'react-router-dom';
 import ReadingModule from './Text/ReadingModule.js';
+import VideoModule from './Text/VideoModule.js';
 import QuizComponent from './Quiz/QuizComponent.js';
 
 export default function Module(props)
@@ -47,6 +48,8 @@ export default function Module(props)
 
     if (_module.type === "text")
         return <ReadingModule key={mid} database={database} mid={mid} cid={cid} content={_module} nextModule={nextModule} />
+    else if (_module.type === "video")
+        return <VideoModule key={mid} database={database} mid={mid} cid={cid} content={_module} nextModule={nextModule} />
     else if (_module.type === "quiz")
         return <QuizComponent key={mid} database={database} mid={mid} cid={cid} uid={currentUser.uid} content={_module} nextModule={nextModule} />
     else return null;
