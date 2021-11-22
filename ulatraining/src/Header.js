@@ -33,12 +33,15 @@ export default function Header(props) {
     const history = useHistory();
 
     useEffect(() => {
-        database.ref('users').child(currentUser.uid).once('value').then(snapshot => {
-            if (snapshot.exists()) {
-                let role = snapshot.val().role;
-                setProfessor(role == 'professor');
-            }
-        });
+        if (currentUser.uid)
+        {
+            database.ref('users').child(currentUser.uid).once('value').then(snapshot => {
+                if (snapshot.exists()) {
+                    let role = snapshot.val().role;
+                    setProfessor(role == 'professor');
+                }
+            });
+        }
         setLoading(false);
     }, [])
 
@@ -90,4 +93,3 @@ export default function Header(props) {
     }
 
 }
-

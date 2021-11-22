@@ -27,7 +27,7 @@ export default function VideoModule(props)
         <Button className='backButton' href={`/course/${cid}`}>Back</Button>
         <div className="contentContainer">
             <h2 className='moduleName'>{_module.name}</h2>
-            <video src={_module.content} controls></video>
+            <video src={_module.content} width="760" controls></video>
         </div>
         <br/>
         <Button className='advanceButton' value='Advance' onClick={handleAdvanceClick}>Advance</Button>

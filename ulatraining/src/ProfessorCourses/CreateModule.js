@@ -94,7 +94,7 @@ export default function CreateModule(props) {
                 <option value="video">Video</option>
             </select><br/>
             <label className="p-2 rounded bg-blue-300"> Module Title:</label>
-            <input className="bg-gray-300 border-black" type="text" name="moduleTitle" id="moduleTitleInput"></input><br></br>
+            <input className="bg-gray-300 border-black" type="text" value={modName} onChange={event => setModName(event.target.value)} name="moduleTitle" id="moduleTitleInput"></input><br></br>
             <label> Module Content</label>
             {
                 (type == 'text')
