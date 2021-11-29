@@ -30,8 +30,6 @@ describe("CreateModule creates a module", () => {
 
         const wrapper = mount(<CreateModule database={fakeDatabase} />)
 
-        console.log(wrapper.debug())
-
         expect(getInnerHTML(wrapper.find('.createModuleHeader').first())).toEqual("Create a Module")
 
 
