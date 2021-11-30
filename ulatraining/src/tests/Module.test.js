@@ -73,6 +73,17 @@ const wrapInAct = async (wrapper) => {
                 content: 'some text'
             }
         }
+    }, 
+    fjsadeurwqoeiuf: {
+        name: "VIDEO101",
+        professor: "tywqoiuertye",
+        modules: {
+            lkdjsafsadkjf: {
+                type: "video",
+                name: "tweets video",
+                content: "https://firebasestorage.googleapis.com/v0/b/csula-8296c.appspot.com/o/courses%2F-Mp4bexAaAW5YAxkBoG5%2Fmodules%2FRemyHorrifyingTweetsResurface.mp4?alt=media&token=41f478c0-54e7-4b97-9b7d-98eaf5e9b970"
+            }
+        }
     }
 }
 
@@ -118,5 +129,18 @@ describe("correct module renders", () => {
         
         expect(getInnerHTML(wrapper.find('.quizScore'))).toEqual('Score: 100%');
         expect(getInnerHTML(wrapper.find('.congrats'))).toEqual('Congratulations, you have passed!');
+    });
+
+    it("should render a video module", async () => {
+        jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => user)
+        jest.spyOn(Router, 'useParams').mockReturnValue({cid: 'fjsadeurwqoeiuf', mid: 'lkdjsafsadkjf'})
+
+        let videomock = testing.database();
+        videomock.ref('courses').set(fakeCoursesSnapshot);
+
+        const wrapper = mount(<Module database={videomock} />)
+        await wrapInAct(wrapper);
+        
+        expect(getInnerHTML(wrapper.find(".moduleName").first())).toEqual("tweets video");
     })
 })
