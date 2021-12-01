@@ -24,11 +24,11 @@ These instructions were last tested and verified to work on 11/12/2021 by Sami o
 
 ## Testing
 
-Users can run the entire test suite by running ```npm test```
+Users should run the entire test suite by running ```npm test -- --silent```
 
-To run the test suite and view a coverage report of all files, run ```npm test -- --coverage --watchAll```
+To run the test suite and view a coverage report of all files, run ```npm test -- --coverage --watchAll --silent```
 
-To run a specific test file, run ```npm test filename```, including a test coverage with ```npm test filename -- --coverage --watchAll```
+To run a specific test file, run ```npm test filename -- --silent```, including a test coverage with ```npm test filename -- --coverage --watchAll --silent```
 
 There is a also a testing firebase database for various usage so as to not manipulate the real data. The testing firebase project can be found at [https://console.firebase.google.com/project/csula--testing/overview](https://console.firebase.google.com/project/csula--testing/overview) (must be invited first)
 
