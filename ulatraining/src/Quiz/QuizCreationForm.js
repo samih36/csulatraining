@@ -14,7 +14,7 @@ class QuizCreationForm extends React.Component
     super(props);
     this.database = props.database;
     this.uid = props.uid; // user id
-    this.courseid = this.props.match.params.cid; // course name
+    this.courseid = props.match.params.cid; // course name
     this.state = {
       mod: 0,
       renderedQuestions: [],
@@ -155,59 +155,7 @@ class QuizCreationForm extends React.Component
             q_open: true}
         })
 
-        // this.setState(function() {
-        //     let qNum = this.state.values.questionNum + 1;
-        //     let newQuestionObj = {
-        //         type: event.target.value,
-        //         text: "",
-        //         maxCharacters: 1000
-        //     }
-        //     if (this.state.newQuestionType === "mco") {
-        //         newQuestionObj = {
-        //         type: "mco",
-        //         choice_num: 4,
-        //         text: "",
-        //         answers:
-        //         [
-        //             "", "", "", ""
-        //         ],
-        //         correctChoices: ["A"]
-        //         }
-        //     }
-        //     let valuescp = Object.assign({},this.state.values);
-        //     valuescp['questionNum'] = qNum;
-        //     let a1 = [...this.state.values.questions, newQuestionObj];
-        //     valuescp['questions'] = a1;
-
-        //     return {
-        //         questions: a1,
-        //         values: valuescp,
-        //     }
-        // }, this.renderNewQuestion)
-
     }
-
-    // renderNewQuestion() {
-    //     console.log(this.state.questions);
-    //     this.setState(function() {
-    //         let question = <div id = {"question" + this.state.values.questionNum}>
-    //             <p>{this.state.values.questionNum})</p>
-    //             <div className="nested-form">
-    //                 <textarea rows="2" cols="80" value={this.state.questions[this.state.values.questionNum - 1].text} onChange={(event) =>{
-    //                     this.setState(function(state, props) {
-    //                         let newQuestionObj = Object.assign({}, this.state.questions[this.state.values.questionNum - 1]);
-    //                         newQuestionObj.text = event.target.value;
-
-    //                         return {
-    //                             renderedQuestions: [...this.state.renderedQuestions],
-    //                             questions: [...this.state.questions.splice(this.state.values.questionNum - 1, 1, newQuestionObj)]};
-    //                     });
-    //                 }}></textarea>
-    //             </div>
-    //         </div>;
-    //         return {renderedQuestions: [...this.state.renderedQuestions, question]}
-    //     })
-    // }
 
     render() {
         let open_question = <div className="nested-form">
@@ -225,14 +173,14 @@ class QuizCreationForm extends React.Component
                             <option value="C">C</option>
                             <option value="D">D</option>
                         </select><br/>
-        <Button className="advanceButton" type="button" onClick={this.createQuestion}>Create Question!</Button>
+        <Button id="createQuestionButton" className="advanceButton" type="button" onClick={this.createQuestion}>Create Question!</Button>
 
 
     </div>;
 
         return <div className="quiz">
             <br/>
-            <h1>Quiz Creator</h1>
+            <h1 className="QuizCreatorTitle">Quiz Creator</h1>
             <Form onSubmit={this.submitForm}>
                 <label for="moduleName">{"Quiz Name: "}</label>
                 <Form.Control className="w-25 m-auto" type="text" maxLength="50" id="name" value={this.state.values.name} onChange={this.formChange}></Form.Control><br/>
@@ -251,7 +199,7 @@ class QuizCreationForm extends React.Component
                             <option value="mco">Multiple Choice</option>
                             <option value="sa">Short Answer</option>
                         </select>
-                        <Button className="advanceButton" onClick={this.newQuestion}>Add</Button>
+                        <Button id="addButton" className="advanceButton" onClick={this.newQuestion}>Add</Button>
                     </div>
 
                     <div id = "questions-main">
@@ -261,7 +209,7 @@ class QuizCreationForm extends React.Component
                     </div>
                     </div>
                 </div>
-                <Button className="advanceButton" type="submit">Create Quiz</Button>
+                <Button onClick={this.submitForm} id="createQuizButton" className="advanceButton" type="submit">Create Quiz</Button>
             </Form>
         </div>;
     }

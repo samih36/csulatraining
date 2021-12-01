@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import app from './firebaseConfig';
 import firebase from 'firebase';
 import './App.css';
-import Hello from './Hello.js';
 import Welcome from './Welcome/Welcome.js'
 import Signup from './Signup.js';
 import { AuthProvider } from './contexts/AuthContext';
@@ -60,7 +59,6 @@ class App extends Component {
               <PrivateRoute exact path ='/add-course' component={(props) => <SelectCourse database={database} /> } database={database} role={'student'} />
               <PrivateRoute exact path="/course/:cid" component={(props) => <StudentCourseView database={database}/>} database={database} role={'student'} />
               <PrivateRoute exact path="/course/:cid/:mid" component={(props) => <Module database={database}/>} database={database}  role={'student'}/>
-              <PrivateRoute exact path="/hello" component={(props) => <Hello {...props} database={database} />} database={database} role={'student'}/>
             </Switch>
           </Router>
         </AuthProvider>
