@@ -89,9 +89,9 @@ export default function CreateModule(props) {
     return (<div className="container">
         <div className="createModuleHeader">Create a Module</div>
         <form>
-            <select value={type} onChange={event => setType(event.target.value)}>
-                <option value="text">Text</option>
-                <option value="video">Video</option>
+            <select id="typeSelect" value={type} onChange={event => setType(event.target.value)}>
+                <option id="TextSelect" value="text">Text</option>
+                <option id="videoSelect" value="video">Video</option>
             </select><br/>
             <label className="p-2 rounded bg-blue-300"> Module Title:</label>
             <input className="bg-gray-300 border-black" type="text" value={modName} onChange={event => setModName(event.target.value)} name="moduleTitle" id="moduleTitleInput"></input><br></br>
@@ -100,11 +100,11 @@ export default function CreateModule(props) {
                 (type == 'text')
                 ? <div>
                     <textarea className="bg-gray-300 border-black" rows="4" cols="50" name="moduleContent" id="moduleContentInput"></textarea><br></br>
-                    <button className="p-2 rounded bg-gray-400" type="button" onClick={handleCreateModule}>Submit</button>
+                    <button id="submitTextButton" className="p-2 rounded bg-gray-400" type="button" onClick={handleCreateModule}>Submit</button>
                 </div>
                 : <div>
                     <input type="file" onChange={event => setFile(event.target.files[0])} />
-                    <button className="p-2 rounded bg-gray-400" type="button" onClick={handleFileUpload}>Submit</button>
+                    <button id="submitFileButton" className="p-2 rounded bg-gray-400" type="button" onClick={handleFileUpload}>Submit</button>
                 </div>
             }
         </form>
