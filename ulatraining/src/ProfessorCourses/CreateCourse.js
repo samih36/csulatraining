@@ -24,7 +24,8 @@ export default function CreateCourse(props) {
 
     }, []);
 
-    const handleCreateCourse = (courseName) => {
+    const handleCreateCourse = () => {
+        let courseName = document.getElementById("courseTitleInput") != null ? document.getElementById("courseTitleInput").value : "Untitled Course";
         let newCoursePush = database.ref('courses').push();
         newCoursePush.set({
             'name': courseName,
@@ -45,7 +46,7 @@ export default function CreateCourse(props) {
         <Form>
             <label className="courseTitleLabel">Course Title:</label>
             <Form.Control className="w-50 m-auto" type="text" name="courseTitle" id="courseTitleInput"></Form.Control><br></br>
-            <Button className="advanceButton" type="button" onClick={event=>handleCreateCourse(document.getElementById("courseTitleInput").value)}>Submit</Button>
+            <Button className="advanceButton" type="button" onClick={handleCreateCourse}>Submit</Button>
         </Form>
 
     </div>);
