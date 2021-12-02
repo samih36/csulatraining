@@ -53,29 +53,29 @@ export default function Signup(props) {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="name">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control type="name" ref={fNameRef} required />
+                            <Form.Control id="firstNameField" type="name" ref={fNameRef} required />
                         </Form.Group>
                         <Form.Group id="name">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control type="name" ref={lNameRef} required />
+                            <Form.Control id="lastNameField" type="name" ref={lNameRef} required />
                         </Form.Group>
                         <Form.Group id="onyen">
                             <Form.Label>UNC ONYEN</Form.Label>
-                            <Form.Control type="onyen" ref={ONYENRef} required />
+                            <Form.Control id="onyenField" type="onyen" ref={ONYENRef} required />
                         </Form.Group>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref={emailRef} required />
+                            <Form.Control id="emailField" type="email" ref={emailRef} required />
                         </Form.Group>
                         <Form.Group id="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" ref={passwordRef} required />
+                            <Form.Control id="passwordField" type="password" ref={passwordRef} required />
                         </Form.Group>
                         <Form.Group id="password-confirm">
                             <Form.Label>Password Confirmation</Form.Label>
-                            <Form.Control type="password" ref={passwordConfirmRef} required />
+                            <Form.Control id="passwordConfirmField" type="password" ref={passwordConfirmRef} required />
                         </Form.Group>
-                        <Button disabed={loading ? 1 : 0} className="w-100 mt-3" type="submit">Sign Up</Button>
+                        <Button disabed={loading ? 1 : 0} onClick={handleSubmit} className="w-100 mt-3" id="signupButton" type="submit">Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>
