@@ -46,6 +46,9 @@ describe("Various Login/Signup/Password Screens Render", () => {
 
         const wrapper = mount(<AuthProvider><Login /></AuthProvider>)
         await wrapInAct(wrapper);
+        wrapper.find('#emailField').last().instance().value = "test@email.com";
+        wrapper.find("#passwordField").last().instance().value = "password";
+        wrapper.find('#loginButton').last().simulate('click');
         expect(getInnerHTML(wrapper.find('.text-center').first())).toEqual('Log In')
     });
     it("should render the signup screen", async () => {
@@ -55,6 +58,13 @@ describe("Various Login/Signup/Password Screens Render", () => {
 
         const wrapper = mount(<Signup />)
         await wrapInAct(wrapper);
+        wrapper.find('#firstNameField').last().instance().value = "First";
+        wrapper.find('#lastNameField').last().instance().value = "Last";
+        wrapper.find('#onyenField').last().instance().value = "myonyen";
+        wrapper.find('#emailField').last().instance().value = "random@email.com";
+        wrapper.find('#passwordField').last().instance().value = "password";
+        wrapper.find('#passwordConfirmField').last().instance().value = "password";
+        wrapper.find('#signupButton').last().simulate('click');
 
         expect(getInnerHTML(wrapper.find('.text-center').first())).toEqual('Sign Up');
     });
@@ -65,6 +75,8 @@ describe("Various Login/Signup/Password Screens Render", () => {
 
         const wrapper = mount(<ForgotPassword />)
         await wrapInAct(wrapper);
+        wrapper.find('#emailField').last().instance().value = "forgotpassword@email.com";
+        wrapper.find('#resetPasswordButton').last().simulate('click');
 
         expect(getInnerHTML(wrapper.find('.text-center').first())).toEqual('Password Reset');
     })

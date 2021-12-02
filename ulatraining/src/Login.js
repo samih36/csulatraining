@@ -42,13 +42,13 @@ export default function Login() {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref={emailRef} required />
+                            <Form.Control id="emailField" type="email" ref={emailRef} required />
                         </Form.Group>
                         <Form.Group id="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" ref={passwordRef} required />
+                            <Form.Control id = "passwordField" type="password" ref={passwordRef} required />
                         </Form.Group>
-                        <Button disabed={loading ? 1 : 0} className="w-100 mt-3" type="submit">Log In</Button>
+                        <Button id="loginButton" onClick={handleSubmit} disabed={loading ? 1 : 0} className="w-100 mt-3" type="submit">Log In</Button>
                     </Form>
                         <div className="w-100 text-center mt-3">
                             <Button href="/forgot-password">Forgot Password</Button>
