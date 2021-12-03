@@ -37,12 +37,12 @@ export default function CreateModule(props) {
             type: 'text',
         });
 
-        database.ref('users').orderByChild('role').equalTo('student').once('value', snapshot => {
+        database.ref('users').once('value', snapshot => {
             if (snapshot.exists()) {
                 const val = snapshot.val();
                 for (const uid in val) {
                     if (val[uid].courses && val[uid].courses[courseID]) {
-                        database.ref('users').child(uid).child('courses').child(courseID).child('modules').child(newModule.key).set(0);
+                        database.ref(`users/${uid}/courses/${courseID}/modules/${newModule.key}`).set(0);
                     }
                 }
             }

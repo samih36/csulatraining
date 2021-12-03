@@ -30,9 +30,9 @@ export default function Signup(props) {
             setLoading(true);
             await signup(emailRef.current.value, passwordRef.current.value, fNameRef.current.value, lNameRef.current.value, ONYENRef.current.value, role, database);
             if (role == "professor") {
-                history.push('/professor-courses');
+                history.push('/login/professor');
             } else {
-                history.push('/my-courses')
+                history.push('/login/student')
             }
 
         } catch {

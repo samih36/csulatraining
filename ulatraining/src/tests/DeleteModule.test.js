@@ -78,8 +78,8 @@ let testUsers = {
 
 }
 
-describe("CreateModule creates a module", () => {
-    it("should render a module creation page and create a text module", async () => {
+describe("DeleteModule deletes a module", () => {
+    it("should delete a module", async () => {
 
         jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => user);
         jest.spyOn(Router, 'useParams').mockReturnValue({cid: 'mfklsdjfhfjdk'})
@@ -90,8 +90,6 @@ describe("CreateModule creates a module", () => {
 
         const wrapper = mount(<DeleteModule database={fakeDatabase} />)
         await wrapInAct(wrapper);
-        wrapper.find('#submitDeleteButton').simulate('click');
-
         expect(getInnerHTML(wrapper.find('.coursesHeader').first())).toEqual("Modules")
 
 
