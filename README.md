@@ -1,6 +1,6 @@
 # CS ULA Training App
 
-This app exists to provide a way to virtually provide training to undergraduate learning assistants within the computer science department through a variety of learning modules and quizzes. Students will be able to add courses, complete modules and take quizzes in order to learn and display the necessary information. Professors can create courses and for their ULAs and track student progress. 
+This app exists to provide a way to virtually provide training to undergraduate learning assistants within the computer science department through a variety of learning modules and quizzes. Students will be able to add courses, complete modules and take quizzes in order to learn and display the necessary information. Professors can create courses and for their ULAs and track student progress. The app is currently deployed and hosted at https://csula-8296c.web.app/
 
 
 
