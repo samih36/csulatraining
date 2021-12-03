@@ -79,7 +79,7 @@ export default function DeleteModule(props) {
                             </div>
                         })
                     }
-                    <button className="p-2 rounded bg-gray-400" type="button" onClick={
+                    <button className="p-2 rounded bg-gray-400" type="button" id="submitDeleteButton" onClick={
                         event => {
                             const confirmBox = window.confirm(
                                 "Do you really want to delete these modules?"
