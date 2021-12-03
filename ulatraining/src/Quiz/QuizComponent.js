@@ -153,7 +153,7 @@ class QuizComponent extends React.Component
       </form>
     </div>;
     } else {
-      let message = <div><p>Sorry you have failed</p><br/><button type="button" onClick={this.tryAgain}>Try Again</button><button type="button" onClick={() => window.location.href = `/course/${this.course}`}>Return to Course Page</button></div>;
+      let message = <div><p>Sorry you have failed</p><br/><Button className='advanceButton mr-5' onClick={this.tryAgain}>Try Again</Button><Button className='advanceButton' onClick={() => window.location.href = `/course/${this.course}`}>Return to Course Page</Button></div>;
       if (this.getQuizResult() >= this.state.quizData.passPercentage) {
         message = <div><p className="congrats">Congratulations, you have passed!</p><br/>
         <Button className="advanceButton" onClick={this.nextModule}>Next Module</Button>

@@ -47,8 +47,9 @@ export default function DeleteModule(props) {
                         for (const uid in val) {
                             if (val[uid].courses && val[uid].courses[cid]) {
                                 let userModules = val[uid]['courses'][cid]['modules'];
+                                console.log(userModules);
                                 delete userModules[mid];
-                                console.log(userModules)
+                                console.log(userModules);
                                 database.ref('users').child(uid).child('courses').child(cid).child('modules').set(userModules);
                             }
                         }
