@@ -16,6 +16,7 @@ export default function EditCourse(props) {
 
 
     return <div className="course-view">
+        <div className="courseHeader">Courses:</div>
         <Grid container spacing = {3}>
             <Grid item xs={12}> {EditableText(props, 'courses/' + cid + '/' + 'name', "course-title")} </Grid>
             <Grid item xs={1}/><Grid item xs={10}> {EditableText(props, 'courses/' + cid + '/' + 'description', "course-description", 24, 500)} </Grid> <Grid item xs={1}/>
