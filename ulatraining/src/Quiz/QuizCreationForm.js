@@ -2,6 +2,8 @@ import { alertTitleClasses, touchRippleClasses } from '@mui/material';
 import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
 import React from 'react';
 import '../Module.css'
+import './QuizCreation.css'
+
 
 import { useAuth } from "../contexts/AuthContext";
 import generateQuestion from './QuestionComponent';
@@ -27,7 +29,6 @@ class QuizCreationForm extends React.Component
       q_a4: '',
       q_text: '',
       q_correct_choice: 'A',
-
       values: {
         //"id": "1",
         "questionNum": 0,
@@ -109,27 +110,41 @@ class QuizCreationForm extends React.Component
     }
 
     createQuestion(event) {
-        let q_json = {
-            type: "mco",
-            choice_num: 4,
-            text: this.state.q_text,
-            answers: [this.state.q_a1, this.state.q_a2, this.state.q_a3, this.state.q_a4],
-            correctChoices: [this.state.q_correct_choice]
-        }
-
-        let valuescp = Object.assign({},this.state.values);
-        valuescp['questions'].push(q_json);
-        valuescp['questionNum'] = valuescp['questionNum'] + 1;
-        console.log(valuescp)
-
-        let newRender= <div>
+        let q_json = {};
+        let newRender = <div></div>
+        if (this.state.newQuestionType === "mco") {
+            q_json = {
+                type: "mco",
+                choice_num: 4,
+                text: this.state.q_text,
+                answers: [this.state.q_a1, this.state.q_a2, this.state.q_a3, this.state.q_a4],
+                correctChoices: [this.state.q_correct_choice]
+            }
+            newRender= <div>
             <h2>{(this.state.renderedQuestions.length + 1)+ ') ' + q_json.text}</h2>
             <p>A) {q_json.answers[0]}</p>
             <p>B) {q_json.answers[1]}</p>
             <p>C) {q_json.answers[2]}</p>
             <p>D) {q_json.answers[3]}</p>
             <p>Correct Answer: {q_json.correctChoices[0]}</p>
-        </div>
+        </div>;
+
+        } else if (this.state.newQuestionType == "sa") {
+            q_json = {
+                type: "sa",
+                text: this.state.q_text,
+                maxCharacters: 1000,
+            }
+            newRender= <div>
+            <h2>{(this.state.renderedQuestions.length + 1)+ ') ' + q_json.text}</h2>
+            <p>Max Characters: {q_json.maxCharacters}</p>
+            </div>;
+        }
+
+        let valuescp = Object.assign({},this.state.values);
+        valuescp['questions'].push(q_json);
+        valuescp['questionNum'] = valuescp['questionNum'] + 1;
+        console.log(valuescp)
 
         this.setState({
             renderedQuestions: [...this.state.renderedQuestions, newRender],
@@ -148,7 +163,7 @@ class QuizCreationForm extends React.Component
             alert("Save or delete current question.");
             //return;
         }
-
+        console.log(this.state.newQuestionType);
         this.setState(function() {
 
             return {
@@ -157,8 +172,8 @@ class QuizCreationForm extends React.Component
 
     }
 
-    render() {
-        let open_question = <div className="nested-form">
+    render_open_mc() {
+        return <div className="nested-form">
         <label for="q-itself">Question:</label>
         <Form.Control className="w-50 m-auto" as='textarea' id="q-itself" rows="2" cols="80" value={this.state.q_text} onChange={(event) =>{
             this.setState({q_text: event.target.value});}}></Form.Control>
@@ -174,9 +189,24 @@ class QuizCreationForm extends React.Component
                             <option value="D">D</option>
                         </select><br/>
         <Button id="createQuestionButton" className="advanceButton" type="button" onClick={this.createQuestion}>Create Question!</Button>
+        <Button id="cancelCreateButton" className="advanceButton" type="button" onClick={(e) => this.setState({q_open: false})}>Cancel</Button>
+</div>;
 
+    }
 
-    </div>;
+    render_open_sa() {
+        return <div className="nested-form">
+        <label for="q-itself">Question:</label>
+        <Form.Control className="w-50 m-auto" as='textarea' id="q-itself" rows="2" cols="80" value={this.state.q_text} onChange={(event) =>{
+            this.setState({q_text: event.target.value});}}></Form.Control>
+        <Button id="createQuestionButton" className="advanceButton" type="button" onClick={this.createQuestion}>Create Question!</Button>
+        <Button id="cancelCreateButton" className="advanceButton" type="button" onClick={(e) => this.setState({q_open: false})}>Cancel</Button>
+        </div>;
+    }
+
+    render() {
+        let open_question = this.state.newQuestionType === 'mco' ? this.render_open_mc() : this.render_open_sa();
+
 
         return <div className="quiz">
             <br/>
