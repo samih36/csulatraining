@@ -24,7 +24,7 @@ These instructions were last tested and verified to work on 11/12/2021 by Sami o
 
 ## Testing
 
-Users should run the entire test suite by running ```npm test -- --silent```
+Users should run the entire test suite by running ```npm test -- --watchAll --silent```
 
 To run the test suite and view a coverage report of all files, run ```npm test -- --coverage --watchAll --silent```
 
